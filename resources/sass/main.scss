@@ -1,4 +1,11 @@
 .card-img-top {
-    max-height: 300px;
-    object-fit: cover;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+form.book {
+  font-size: 1rem;
+  button[type="submit"] {
+    font-size: 1.1rem;
+  }
 }
