@@ -15,8 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 
-Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
+Route::group(['prefix' => 'services'], function () {
+  Route::group(['as' => 'services.'], function () {
     Route::get('/', 'ServiceController@index')->name('index');
     Route::get('/{slug}', 'ServiceController@show')->name('show');
+  });
+
+  Route::group(['as' => 'booking.'], function () {
+    Route::post('/{slug}/book', 'BookingController@create')->name('create');
+    Route::get('/{slug}/pay', 'BookingController@pay')->name('pay');
+  });
 });
+
 

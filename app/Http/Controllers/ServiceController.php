@@ -10,7 +10,7 @@ class ServiceController extends Controller
         return view('services.index');
     }
 
-    public function show() {
+    public function show($slug) {
         return view('services.show');
     }
 }
