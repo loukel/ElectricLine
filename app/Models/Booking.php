@@ -28,7 +28,7 @@ class Booking extends Model {
     /**
    * Get the service variant
    */
-  public function service_variant() {
+  public function serviceVariant() {
     return $this->belongsTo(Provider::class);
   }
 
