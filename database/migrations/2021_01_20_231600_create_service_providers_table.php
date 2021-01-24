@@ -15,6 +15,10 @@ class CreateServiceProvidersTable extends Migration
     {
         Schema::create('service_providers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('provider_id');
+            $table->foreign('provider_id')->references('id')->on('users');
+            $table->unsignedBigInteger('service_variant_id');
+            $table->foreign('service_variant_id')->references('id')->on('service_variants');
             $table->timestamps();
         });
     }
