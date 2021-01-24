@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model {
   use HasFactory;
+
+  // All attributes are mass asignable
+  protected $guarded = [];
+
   /**
    * Get the address of the location
    */
