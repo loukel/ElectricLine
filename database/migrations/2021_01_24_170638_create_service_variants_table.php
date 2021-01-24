@@ -13,7 +13,7 @@ class CreateSeviceVariantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sevice_variants', function (Blueprint $table) {
+        Schema::create('service_variants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services');
@@ -32,6 +32,6 @@ class CreateSeviceVariantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sevice_variants');
+        Schema::dropIfExists('service_variants');
     }
 }
