@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+// $customers = User::isCustomer()->get();
+// $providers = User::isProvider()->get();
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -18,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'email',
+        'name',
         'password',
     ];
 
@@ -39,4 +42,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeIsCustomer($query)
+    {
+        $query->where('type', 'customer');
+    }
+    public function scopeIsProvider($query)
+    {
+        $query->where('type', 'provider');
+    }
+
+    /**
+     * Get addresses of the user
+     */
+    public function addresses() {
+      return $this->hasMany(Address::class, 'user_id');
+    }
 }
