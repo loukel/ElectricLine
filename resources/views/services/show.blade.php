@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('scripts')
+
+@endsection
+
+@section('styles')
+
+@endsection
+
 @section('content')
 <div class="container py-4">
   {{-- row col-sm-3 --}}
@@ -31,18 +39,6 @@
             <option>5</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="price">Price</label>
-          <span class="h5 text-muted">£10.50</span>
-        </div>
-        <div class="form-group">
-          <label for="duration">Duration</label>
-          <span class="h5 text-muted">1hr 30m</span>
-        </div>
-        <div class="form-group">
-          <label for="time">At</label>
-          <span class="h5 text-muted">12:00-13:30 on {{ date("j F, Y") }}</span>
-        </div>
         <button class="btn btn-success w-100" type="submit" name="submit">Book service</button>
       </form>
     </div>
@@ -55,10 +51,5 @@
     </div>
   </div> --}}
 </div>
-<style>
-  body {
-    overflow: hidden;
-  }
 
-</style>
 @endsection

@@ -21,7 +21,7 @@ Route::group(['prefix' => 'services'], function () {
     Route::get('/{slug}', 'ServiceController@show')->name('show');
   });
 
-  Route::group(['as' => 'booking.'], function () {
+  Route::group(['as' => 'booking.' , 'middleware' => ['auth']], function () {
     Route::post('/{slug}/book', 'BookingController@create')->name('create');
     Route::get('/{slug}/pay', 'BookingController@pay')->name('pay');
   });

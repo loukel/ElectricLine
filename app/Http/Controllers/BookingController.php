@@ -9,7 +9,7 @@ use App\Models\Booking;
 class BookingController extends Controller
 {
   public function create($slug) {
-    // $booking = new Booking();
+    $booking = new Booking();
     request('postcode');
 
     $bookingID = 1;
