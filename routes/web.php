@@ -22,8 +22,9 @@ Route::group(['prefix' => 'services'], function () {
   });
 
   Route::group(['as' => 'booking.' , 'middleware' => ['auth']], function () {
-    Route::post('/{slug}/book', 'BookingController@create')->name('create');
     Route::get('/{slug}/pay', 'BookingController@pay')->name('pay');
+    Route::post('/{slug}/process', 'BookingController@process')->name('process');
+
   });
 });
 

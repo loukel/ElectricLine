@@ -13,9 +13,8 @@
   {{-- row col-sm-3 --}}
   <div class="d-flex justify-content-center">
     <div class="w-75 p-4 card">
-      <form action="{{ route('booking.create', request()->route('slug')) }}"
-        method="POST" class="book">
-        @csrf
+      <form action="{{ route('booking.pay', request()->route('slug')) }}"
+        method="GET" class="book">
         <div class="form-group">
           <label for="postcode">Postcode</label>
           <input class="form-control" type="text" id="postcode" name="postcode">
