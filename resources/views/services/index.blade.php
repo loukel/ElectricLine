@@ -24,7 +24,7 @@
     <div class="card">
       <img class="card-img-top" src="img/consumerunit.jpg" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">Consume Unit Replacement</h5>
+        <h5 class="card-title">Consumer Unit Replacement</h5>
         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
       </div>
       <div class="card-footer text-center p-0">
