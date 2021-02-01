@@ -5,18 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Booking;
+use App\Models\Address;
 
 class BookingController extends Controller
 {
-  public function pay($slug) {
-    return view('services.pay');
+  public function address($slug) {
+    return view('services.book.address');
   }
 
-  public function process($slug) {
-    $booking = new Booking;
+  public function variant($slug) {
+    return view('services.book.variant');
+  }
 
-    $booking;
+  public function datetime($slug) {
+    return view('services.book.datetime');
+  }
 
-    return view('services.pay');
+  public function pay($slug) {
+    return view('services.book.pay');
+  }
+
+  public function process() {
+    return view('services.index');
   }
 }
