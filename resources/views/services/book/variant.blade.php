@@ -9,8 +9,7 @@
 @endsection
 
 @section('content')
-<div class="container py-4">
-  {{-- row col-sm-3 --}}
+<div class="container py-4">}
   <div class="d-flex justify-content-center">
     <div class="w-75 p-4 card">
       <form
@@ -40,13 +39,6 @@
       </form>
     </div>
   </div>
-
-  {{-- <div class="col-sm d-flex flex-column p-0">
-    <div class="navigator card"></div>
-    <div class="calender card h-100 w-25">
-
-    </div>
-  </div> --}}
 </div>
 
 @endsection
