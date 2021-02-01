@@ -11,6 +11,7 @@ use App\Models\Address;
 use App\Models\Service;
 use App\Models\ServiceVariant;
 use App\Models\ServiceProvider;
+use App\Models\Provider;
 
 class BookingController extends Controller
 {
@@ -82,11 +83,45 @@ class BookingController extends Controller
     return view('services.book.datetime');
   }
 
+  public function processDatetime(Request $request, $slug) {
+    if (isset($_POST['submit'])) {
+      // Get session booking
+      $booking = $request->session()->get('booking');
+
+      // Get datetime
+      $startDatetime = request('datetime');
+
+      // Provider id set to the provider available TBC
+      // Need to evaluate whether the provider is busy or not
+      $providerID = Provider::first()->id;
+
+      // Set provider id in booking
+      $booking->provider_id = $providerID;
+
+      // Get the service variant model
+      $serviceVariant = ServiceVariant::find($booking->service_variant_id);
+
+      // Set start and end datetime
+      $booking->start = $startDatetime;
+
+      $duration = $serviceVariant->duration;
+      $booking->end = date('d-m-Y H:i', strtotime('+60 minutes', strtotime($startDatetime)));
+
+      // Set total
+      $booking->price = $serviceVariant->price;
+
+      // Hold the session booking -> full
+      $request->session()->put('booking', $booking);
+
+      return redirect(route('services.book.pay', $slug));
+    }
+  }
+
   public function pay($slug) {
     return view('services.book.pay');
   }
 
   public function process() {
-    return view('services.index');
+    return redirect(route('services.index'))->with('msg', 'Complete');
   }
 }

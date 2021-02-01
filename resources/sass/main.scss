@@ -9,3 +9,14 @@ form.book {
     font-size: 1.1rem;
   }
 }
+
+.xdsoft_datetimepicker {
+  margin-top: 10px;
+  border: 0 !important;
+  display: flex !important;
+  justify-content: center;
+  min-width: 100%;
+  .xdsoft_datepicker {
+    // min-width: 60%;
+  }
+}

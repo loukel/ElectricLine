@@ -7,7 +7,7 @@
 @section('content')
 <div class="container py-4">
   <div class="d-flex justify-content-center">
-    <div class="w-75 p-4 card">
+    <div class="w-75 p-2 card">
       <div class="card-body">
         <div class="card-title h2">
           Address
@@ -56,7 +56,7 @@
               <input class="form-control" type="text" id="city" name="city" required>
             </div>
           @endif
-          <button class="btn btn-success w-100" type="submit" name="submit">Book service</button>
+          <button class="btn btn-success w-100" type="submit" name="submit">Next</button>
         </form>
       </div>
     </div>

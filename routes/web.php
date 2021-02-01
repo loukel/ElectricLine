@@ -31,7 +31,6 @@ Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
       Route::post('/process', 'BookingController@process')->name('process');
     });
   });
-
 });
 
 
