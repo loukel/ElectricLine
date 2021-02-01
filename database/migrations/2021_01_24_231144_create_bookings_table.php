@@ -15,12 +15,14 @@ class CreateBookingsTable extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('address_id');
-            $table->foreign('address_id')->references('id')->on('addresses');
-            $table->unsignedBigInteger('service_provider_id');
-            $table->foreign('service_provider_id')->references('id')->on('service_providers');
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('users');
+            $table->unsignedBigInteger('address_id');
+            $table->foreign('address_id')->references('id')->on('addresses');
+            $table->unsignedBigInteger('service_variant_id');
+            $table->foreign('service_variant_id')->references('id')->on('service_variants');
+            $table->unsignedBigInteger('provider_id');
+            $table->foreign('provider_id')->references('id')->on('users');
             $table->string('status')->nullable();
             $table->float('total');
             $table->dateTime('start');

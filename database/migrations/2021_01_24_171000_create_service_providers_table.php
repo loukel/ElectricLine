@@ -17,8 +17,8 @@ class CreateServiceProvidersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('provider_id');
             $table->foreign('provider_id')->references('id')->on('users');
-            $table->unsignedBigInteger('service_variant_id');
-            $table->foreign('service_variant_id')->references('id')->on('service_variants');
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
         });
     }
