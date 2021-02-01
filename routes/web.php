@@ -20,7 +20,11 @@ Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
       Route::post('/processAddress', 'BookingController@processAddress')->name('process-address');
 
       Route::get('/variant', 'BookingController@variant')->name('variant');
+      Route::post('/processVariant', 'BookingController@processVariant')->name('process-variant');
+
       Route::get('/datetime', 'BookingController@datetime')->name('datetime');
+      Route::post('/processDatetime', 'BookingController@processDatetime')->name('process-datetime');
+
       Route::get('/pay', 'BookingController@pay')->name('pay');
 
       // Process the whole form inc. paying then redirect to the home page with a confirmation

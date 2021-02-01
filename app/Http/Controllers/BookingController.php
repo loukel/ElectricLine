@@ -8,6 +8,9 @@ use Auth;
 
 use App\Models\Booking;
 use App\Models\Address;
+use App\Models\Service;
+use App\Models\ServiceVariant;
+use App\Models\ServiceProvider;
 
 class BookingController extends Controller
 {
@@ -17,11 +20,12 @@ class BookingController extends Controller
     return view('services.book.address', compact('addresses'));
   }
 
-  public function processAddress($slug) {
-    // Needs validation and strings need to be sanitized
+  public function processAddress(Request $request, $slug) {
     if (isset($_POST['submit'])) {
+      // Start the booking process
       $booking = new Booking;
       if (empty($_POST['addresses']) || $_POST['addresses'] === -1) {
+        // Create new address
         $address = new Address;
 
         $address->user_id = Auth::id();
@@ -31,18 +35,47 @@ class BookingController extends Controller
 
         $address->save();
 
+        // Set the address of the booking to the new address
         $booking->address_id = $address->id;
       } else {
+        // Set the address of the booking to the existing address
         $booking->address_id = $_POST['addresses'];
       }
-      return redirect(route('services.book.variant', $slug, compact('booking')));
+
+      // Hold the session booking
+      $request->session()->put('booking', $booking);
+
+      return redirect(route('services.book.variant', $slug));
     } else {
       return redirect(route('services.book.addresses', $slug));
     }
   }
 
-  public function variant($slug) {
+  public function variant(Request $request, $slug) {
     return view('services.book.variant');
+  }
+
+  public function processVariant(Request $request, $slug) {
+    if (isset($_POST['submit'])) {
+      // Get session booking
+      $booking = $request->session()->get('booking');
+
+      // Get service id
+      $serviceID = Service::where('slug', $slug)->first()->id;
+
+      // Get service variant ID
+      $serviceVariantID = ServiceVariant::where('service_id', $serviceID)->where('bedroom_number', request('bedrooms'))->where('type', request('type'))->first()->id;
+
+      // Set service variant of the booking
+      $booking->service_variant_id = $serviceVariantID;
+
+      // Hold the session booking
+      $request->session()->put('booking', $booking);
+
+      return redirect(route('services.book.datetime', $slug));
+    } else {
+      return redirect(route('services.book.variant', $slug));
+    }
   }
 
   public function datetime($slug) {
