@@ -13,7 +13,8 @@
   {{-- row col-sm-3 --}}
   <div class="d-flex justify-content-center">
     <div class="w-75 p-4 card">
-      <form action="{{ route('booking.pay', request()->route('slug')) }}"
+      <form
+        action="{{ route('services.book.datetime', request()->route('slug')) }}"
         method="GET" class="book">
         <div class="form-group">
           <label for="postcode">Postcode</label>

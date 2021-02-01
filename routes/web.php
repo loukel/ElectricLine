@@ -17,6 +17,8 @@ Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
        */
       // Mult-step form
       Route::get('/address', 'BookingController@address')->name('address');
+      Route::post('/processAddress', 'BookingController@processAddress')->name('process-address');
+
       Route::get('/variant', 'BookingController@variant')->name('variant');
       Route::get('/datetime', 'BookingController@datetime')->name('datetime');
       Route::get('/pay', 'BookingController@pay')->name('pay');
