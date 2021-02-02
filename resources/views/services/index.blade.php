@@ -1,7 +1,20 @@
 @extends('layouts.app')
 
+@section('scripts')
+<script defer src="{{ asset('js/services.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="container py-4">
+  <div
+    class="alert alert-success {{ session('success') ? '' : 'd-none' }}"
+    role="alert" id="booking-confirmation">
+    Your booking is complete. You can view it here <a href="{{ session('success') }}"
+      class="alert-link">Booking ID - {{ session('success') }}</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick=>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <div class="card-deck">
     <div class="card">
       <img class="card-img-top" src="img/lightbulb.jpg" alt="Card image cap">

@@ -148,6 +148,6 @@ class BookingController extends Controller
     // Store the booking
     $booking->save();
 
-    return redirect(route('services.index'))->with('msg', 'Complete');
+    return redirect(route('services.index'))->with('success', $booking->id);
   }
 }
