@@ -12,6 +12,7 @@ use App\Models\Service;
 use App\Models\ServiceVariant;
 use App\Models\ServiceProvider;
 use App\Models\Provider;
+use App\Models\Customer;
 
 class BookingController extends Controller
 {
@@ -42,6 +43,9 @@ class BookingController extends Controller
         // Set the address of the booking to the existing address
         $booking->address_id = $_POST['addresses'];
       }
+
+      // Set the customer id
+      $booking->customer_id = Auth::id();
 
       // Hold the session booking
       $request->session()->put('booking', $booking);
@@ -89,7 +93,7 @@ class BookingController extends Controller
       $booking = $request->session()->get('booking');
 
       // Get datetime
-      $startDatetime = request('datetime');
+      $startDatetime = date('Y-m-d H:i:s', strtotime(request('datetime')));
 
       // Provider id set to the provider available TBC
       // Need to evaluate whether the provider is busy or not
@@ -105,10 +109,10 @@ class BookingController extends Controller
       $booking->start = $startDatetime;
 
       $duration = $serviceVariant->duration;
-      $booking->end = date('d-m-Y H:i', strtotime('+60 minutes', strtotime($startDatetime)));
+      $booking->end = date('Y-m-d H:i:s', strtotime('+60 minutes', strtotime($startDatetime)));
 
       // Set total
-      $booking->price = $serviceVariant->price;
+      $booking->total = $serviceVariant->price;
 
       // Hold the session booking -> full
       $request->session()->put('booking', $booking);
@@ -117,11 +121,33 @@ class BookingController extends Controller
     }
   }
 
-  public function pay($slug) {
-    return view('services.book.pay');
+  public function pay(Request $request, $slug) {
+    // Get the session booking
+    $booking = $request->session()->get('booking');
+
+    // Get the booking details
+    $service = ServiceVariant::find($booking->service_variant_id)->getDisplay();
+    $providerName = Provider::find($booking->provider_id)->name;
+    $customerName = Customer::find($booking->customer_id)->name;
+    $address = Address::find($booking->address_id)->getDisplay();
+    $datetime = strtotime($booking->start);
+    $date = date('l jS Y', $datetime);
+    $time = date('g:ia', $datetime);
+    $total = $booking->total;
+
+    // Hold the session booking -> full
+    $request->session()->put('booking', $booking);
+
+    return view('services.book.pay', compact('service', 'providerName', 'customerName', 'address', 'date', 'time', 'total'));
   }
 
-  public function process() {
+  public function process(Request $request, $slug) {
+    // Get the session booking
+    $booking = $request->session()->get('booking');
+
+    // Store the booking
+    $booking->save();
+
     return redirect(route('services.index'))->with('msg', 'Complete');
   }
 }

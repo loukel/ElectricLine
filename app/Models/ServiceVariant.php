@@ -13,7 +13,14 @@ class ServiceVariant extends Model
         /**
      * Get the service of the service variant
      */
-    public function services() {
-      return $this->belongsTo(Services::class);
+    public function service() {
+      return $this->belongsTo(Service::class)->first();
+    }
+
+    public function getDisplay() {
+      $serviceName = $this->service()->name;
+      $bedrooms = $this->bedroom_number;
+      $type = $this->type;
+      return "{$serviceName}, ({$type}, {$bedrooms})";
     }
 }
