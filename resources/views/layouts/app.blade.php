@@ -39,10 +39,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('bookings.index') }}">Bookings</a>
-            </li>
+          @if(Auth::user())
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('bookings.index') }}">Bookings</a>
+              </li>
+          @endif
           </ul>
 
           <!-- Right Side Of Navbar -->

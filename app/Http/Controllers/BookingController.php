@@ -158,12 +158,7 @@ class BookingController extends Controller
       $bookings = Booking::where('customer_id', Auth::id())->paginate(10);
     }
 
-
-    if (!$bookings) {
-      return redirect('/');
-    } else {
-      return view('bookings.index', compact('bookings'));
-    }
+    return view('bookings.index', compact('bookings'));
 
   }
 
