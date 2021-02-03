@@ -126,13 +126,12 @@ class BookingController extends Controller
     $booking = $request->session()->get('booking');
 
     // Get the booking details
-    $service = ServiceVariant::find($booking->service_variant_id)->getDisplay();
-    $providerName = Provider::find($booking->provider_id)->name;
-    $customerName = Customer::find($booking->customer_id)->name;
-    $address = Address::find($booking->address_id)->getDisplay();
-    $datetime = strtotime($booking->start);
-    $date = date('l jS Y', $datetime);
-    $time = date('g:ia', $datetime);
+    $service = $booking->serviceVariant()->getDisplay();
+    $providerName = $booking->provider()->name;
+    $customerName = $booking->customer()->name;
+    $address = $booking->address()->getDisplay();
+    $date = $booking->dateDisplay();
+    $time = $booking->timeDisplay();
     $total = $booking->total;
 
     // Hold the session booking -> full
@@ -152,7 +151,9 @@ class BookingController extends Controller
   }
 
   public function index() {
-    return view('bookings.index');
+    $bookings = Booking::paginate(10);
+
+    return view('bookings.index', compact('bookings'));
   }
 
   public function show($id) {
