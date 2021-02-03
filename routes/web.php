@@ -33,7 +33,7 @@ Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
   });
 });
 
-Route::group(['prefix' => 'bookings', 'as' => 'bookings.'], function () {
+Route::group(['prefix' => 'bookings', 'as' => 'bookings.', 'middleware' => ['auth']], function () {
   Route::get('/', 'BookingController@index')->name('index');
   Route::get('/{id}', 'BookingController@show')->name('show');
 });

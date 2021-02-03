@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-      if (Auth::user()->provider())
-        return redirect(route('bookings.index'));
-      elseif (Auth::user()->customer())
+      if (!Auth::user() or Auth::user()->customer())
         return redirect(route('services.index'));
+      elseif (Auth::user()->provider())
+        return redirect(route('bookings.index'));
+
     }
 }
