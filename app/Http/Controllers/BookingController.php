@@ -150,4 +150,12 @@ class BookingController extends Controller
 
     return redirect(route('services.index'))->with('success', $booking->id);
   }
+
+  public function index() {
+    return view('bookings.index');
+  }
+
+  public function show($id) {
+    return view('bookings.show');
+  }
 }
