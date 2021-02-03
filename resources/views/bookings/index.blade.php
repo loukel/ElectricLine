@@ -18,7 +18,7 @@
 
     <tbody>
       @forelse($bookings as $booking)
-        <tr>
+        <tr onClick="location.href='{{ route('bookings.show', $booking->id) }}'">
           <td>{{ $booking->service()->name }}</td>
           <td>{{ $booking->serviceVariant()->type }}</td>
           <td>{{ $booking->serviceVariant()->bedroom_number }}</td>
