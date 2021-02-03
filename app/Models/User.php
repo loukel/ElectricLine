@@ -58,4 +58,14 @@ class User extends Authenticatable
     public function addresses() {
       return $this->hasMany(Address::class, 'user_id');
     }
+
+    /**
+     * test whether the user is a customer or a provider
+     */
+    public function customer() {
+      return $this->type == 'customer';
+    }
+    public function provider() {
+      return $this->type == 'provider';
+    }
 }

@@ -13,6 +13,7 @@ use App\Models\ServiceVariant;
 use App\Models\ServiceProvider;
 use App\Models\Provider;
 use App\Models\Customer;
+use App\Models\User;
 
 class BookingController extends Controller
 {
@@ -151,14 +152,33 @@ class BookingController extends Controller
   }
 
   public function index() {
-    $bookings = Booking::paginate(10);
+    if (Auth::user()->provider()) {
+      $bookings = Booking::where('provider_id', Auth::id())->paginate(10);
+    } elseif  (Auth::user()->customer()) {
+      $bookings = Booking::where('customer_id', Auth::id())->paginate(10);
+    }
 
-    return view('bookings.index', compact('bookings'));
+
+    if (!$bookings) {
+      return redirect('/');
+    } else {
+      return view('bookings.index', compact('bookings'));
+    }
+
   }
 
   public function show($id) {
-    $booking = Booking::find($id);
+    if (Auth::user()->provider()) {
+      $booking = Booking::where('id', $id)->where('provider_id', Auth::id())->first();
+    } elseif  (Auth::user()->customer()) {
+      $booking = Booking::where('id', $id)->where('customer_id', Auth::id())->first();
+    }
 
-    return view('bookings.show', compact('booking'));
+    if (!$booking) {
+      return redirect('/');
+    } else {
+      return view('bookings.show', compact('booking'));
+    }
+
   }
 }
