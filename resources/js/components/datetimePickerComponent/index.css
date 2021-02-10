@@ -1,0 +1,90 @@
+.datetime-picker {
+  max-height: 30rem;
+  flex-direction: row;
+  width: 100%;
+}
+
+.arrow, .month-year {
+  font-size: 18pt;
+}
+
+th:hover {
+  cursor: pointer;
+  user-select: none;
+}
+
+tr {
+  text-align: center;
+}
+
+th {
+  color: #6c757d;
+}
+th.this-month-cell {
+  color:black;
+}
+
+th.selected span {
+  border-radius: 1.5rem;
+  padding: 0.5rem;
+  background: #007bff;
+}
+
+.month-navigator:active, .month-navigator:focus {
+  outline:0px !important;
+  -webkit-appearance:none;
+  box-shadow: none !important;
+}
+.month-year {
+  min-width: 50%;
+  text-align: center;
+}
+
+/* Mobile should be on its side */
+
+
+/* Times */
+.times {
+  max-width: fit-content;
+  max-height: 30rem;
+  overflow-y: scroll;
+  padding-right: 3px;
+}
+
+.times .btn {
+  font-size: 1.1rem;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 15px;
+  margin-bottom: 5%;
+}
+
+.btn:disabled {
+  background: green !important;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) { 
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) { 
+  .datetime-picker {
+    flex-direction: column;
+  }
+  .times {
+    justify-content: flex-start;
+    flex-direction: row;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) { 
+  
+ }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1200px) { 
+
+ }

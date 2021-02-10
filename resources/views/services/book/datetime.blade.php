@@ -23,9 +23,7 @@
           action="{{ route('services.book.process-datetime', request()->route('slug')) }}"
           method="POST" class="book">
           @csrf
-          <div class="form-group">
-            <input type="text" id="datetimepicker" name="datetime">
-          </div>
+          <div id="datetime-picker"></div>
           <button class="btn btn-success w-100" type="submit" name="submit">Next</button>
         </form>
       </div>
@@ -33,14 +31,6 @@
   </div>
 </div>
 
-<script>
-  // https://xdsoft.net/jqplugins/datetimepicker/
-  $('#datetimepicker').datetimepicker({
-    format: 'd.m.Y H:i',
-    inline: true,
-    minDate: 0,
-    step: 15,
-  });
 
-</script>
+
 @endsection
