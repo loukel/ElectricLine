@@ -83,7 +83,7 @@ const Datetime = ({ minDate, maxDate }) => {
       addedMins = parseInt(minMaxDayTimes[7].slice(4));
       if (minMaxDayTimes[7].slice(3,4) == '-') addedMins = -addedMins;
       minTimeInMins += addedMins;
-    } 
+    }
   }
 
   // Fix minDate
@@ -95,7 +95,7 @@ const Datetime = ({ minDate, maxDate }) => {
       daysToAdd = parseInt(minDate.slice(6));
     else if (sign == '-')
       daysToAdd = -parseInt(minDate.slice(6));
-      
+
     if (daysToAdd == 0 && (minTimeInMins > 1440 || minTimeInMins > maxTimeInMins))
       daysToAdd++;
 
@@ -142,14 +142,14 @@ const Datetime = ({ minDate, maxDate }) => {
       }
       day_ = numberToTwoChar(day_);
       date = [monthYear_, day_].join('-');
-    } 
+    }
 
     // Check if date is invalid, and lower if so
     while (isNaN(new Date(date))) {
       day_--;
       date = [monthYear_, day_].join('-');
     }
-  
+
     setSelectedDate(date);
   }
 
@@ -175,7 +175,7 @@ const Datetime = ({ minDate, maxDate }) => {
   function getDisplayMonthYear(unformatedMY) {
     var MY = new Date(unformatedMY);
     return monthNames[MY.getMonth()] + ' ' + MY.getFullYear();
-  } 
+  }
 
   useEffect(() => {
     setMonthYear(monthsYears[monthIndex]);
@@ -205,7 +205,7 @@ const Datetime = ({ minDate, maxDate }) => {
         else if (date == 1)
           // Date is set in the current
           when = 'current';
-        
+
           var daysDate;
         switch (when) {
           case 'previous':
@@ -220,14 +220,14 @@ const Datetime = ({ minDate, maxDate }) => {
                 yearString = monthYear.slice(0,4)
               }
               daysDate = [yearString, monthString, numberToTwoChar(date)].join('-');
-            } else 
+            } else
               daysDate = date;
           break;
           case 'current':
             var formattedDate = [monthYear, numberToTwoChar(date)].join('-');
             if (formattedDate <= maxDate && formattedDate >= minDate)
               daysDate = formattedDate;
-            else 
+            else
               daysDate = date;
           break;
           case 'after':
@@ -241,11 +241,11 @@ const Datetime = ({ minDate, maxDate }) => {
                 monthString = numberToTwoChar(parseInt(monthYear.slice(5,7)) + 1);
                 yearString = monthYear.slice(0,4)
               }
-              if ([yearString, monthString, numberToTwoChar(date)].join('-') <= maxDate) 
+              if ([yearString, monthString, numberToTwoChar(date)].join('-') <= maxDate)
                 daysDate = [yearString, monthString, numberToTwoChar(date)].join('-');
               else
                 daysDate = date;
-            } else 
+            } else
               daysDate = date;
           break;
         }
@@ -276,9 +276,9 @@ const Datetime = ({ minDate, maxDate }) => {
   }
 
   return (
-    <div className='container datetime-picker py-4 d-flex justify-content-center'>
+    <div className='datetime-picker py-4 d-flex justify-content-center'>
       <div className="card card-body date-picker">
-        <input type="datetime" value={selectedDate} class="mb-4 text-center d-none" name="date-input" id="date-input"/> 
+        <input type="datetime" value={selectedDate} class="mb-4 text-center d-none" name="date-input" id="date-input"/>
         <div className="d-flex justify-content-center">
           <button type="button" class="btn btn-default btn-arrow-left month-navigator" onClick={prevMonth}>Previous</button>
           <span class="month-year">{getDisplayMonthYear(monthYear)}</span>
@@ -296,13 +296,13 @@ const Datetime = ({ minDate, maxDate }) => {
               <th>Saturday</th>
             </tr>
           </thead>
-        
-          <tbody> 
+
+          <tbody>
             { currentCalender.map((row) => (
               <tr>
                 {row.map((date) => (
                   <th key={date} id={date} onClick={() => selectDate(date)} className={
-                    new Date(date).getMonth() + 1 == monthYear.slice(5,7) && 
+                    new Date(date).getMonth() + 1 == monthYear.slice(5,7) &&
                     (typeof (date) != 'number' && new Date(date.slice(0,4), date.slice(5,7) - 1, date.slice(8,10)) <= new Date(maxDate.slice(0,4), maxDate.slice(5,7) - 1, maxDate.slice(8,10)))
                     ? `this-month-cell ${date == selectedDate ? 'selected' : ''}` : ""
                   }>
@@ -312,7 +312,7 @@ const Datetime = ({ minDate, maxDate }) => {
                   </th>
                 ))}
               </tr>
-              ))} 
+              ))}
           </tbody>
         </table>
       </div>

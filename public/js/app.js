@@ -2262,7 +2262,7 @@ var Datetime = function Datetime(_ref) {
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "container datetime-picker py-4 d-flex justify-content-center",
+    className: "datetime-picker py-4 d-flex justify-content-center",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "card card-body date-picker",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
@@ -2507,7 +2507,7 @@ var TimePicker = function TimePicker(_ref5) {
     }
   }, [times]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "card times d-flex",
+    className: "card times d-flex ",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
       type: "time",
       value: selectedTime,
@@ -2524,6 +2524,9 @@ var TimePicker = function TimePicker(_ref5) {
         disabled: time == selectedTime && 'true',
         children: time
       });
+    }), times.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "text-center pt-4",
+      children: "No Available Times"
     })]
   });
 };
@@ -7131,7 +7134,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".datetime-picker {\r\n  max-height: 30rem;\r\n  flex-direction: row;\r\n  width: 100%;\r\n}\r\n\r\n.arrow, .month-year {\r\n  font-size: 18pt;\r\n}\r\n\r\nth:hover {\r\n  cursor: pointer;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\r\n}\r\n\r\ntr {\r\n  text-align: center;\r\n}\r\n\r\nth {\r\n  color: #6c757d;\r\n}\r\nth.this-month-cell {\r\n  color:black;\r\n}\r\n\r\nth.selected span {\r\n  border-radius: 1.5rem;\r\n  padding: 0.5rem;\r\n  background: #007bff;\r\n}\r\n\r\n.month-navigator:active, .month-navigator:focus {\r\n  outline:0px !important;\r\n  -webkit-appearance:none;\r\n  box-shadow: none !important;\r\n}\r\n.month-year {\r\n  min-width: 50%;\r\n  text-align: center;\r\n}\r\n\r\n/* Mobile should be on its side */\r\n\r\n\r\n/* Times */\r\n.times {\r\n  max-width: -webkit-fit-content;\r\n  max-width: -moz-fit-content;\r\n  max-width: fit-content;\r\n  max-height: 30rem;\r\n  overflow-y: scroll;\r\n  padding-right: 3px;\r\n}\r\n\r\n.times .btn {\r\n  font-size: 1.1rem;\r\n  display: flex;\r\n  flex-wrap: nowrap;\r\n  padding: 15px;\r\n  margin-bottom: 5%;\r\n}\r\n\r\n.btn:disabled {\r\n  background: green !important;\r\n}\r\n\r\n/* Small devices (landscape phones, 576px and up) */\r\n@media (max-width: 576px) { \r\n\r\n}\r\n\r\n/* Medium devices (tablets, 768px and up) */\r\n@media (max-width: 768px) { \r\n  .datetime-picker {\r\n    flex-direction: column;\r\n  }\r\n  .times {\r\n    justify-content: flex-start;\r\n    flex-direction: row;\r\n  }\r\n}\r\n\r\n/* Large devices (desktops, 992px and up) */\r\n@media (max-width: 992px) { \r\n  \r\n }\r\n\r\n/* Extra large devices (large desktops, 1200px and up) */\r\n@media (max-width: 1200px) { \r\n\r\n }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".datetime-picker {\n  max-height: 30rem;\n  flex-direction: row;\n  width: 100%;\n}\n\n.date-picker {\n  border: none;\n}\n\n.arrow, .month-year {\n  font-size: 18pt;\n}\n\nth:hover {\n  cursor: pointer;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\ntr {\n  text-align: center;\n}\n\nth {\n  color: #6c757d;\n}\nth.this-month-cell {\n  color:black;\n}\n\nth.selected span {\n  border-radius: 1.5rem;\n  padding: 0.5rem;\n  background: #007bff;\n}\n\n.month-navigator:active, .month-navigator:focus {\n  outline:0px !important;\n  -webkit-appearance:none;\n  box-shadow: none !important;\n}\n.month-year {\n  min-width: 50%;\n  text-align: center;\n}\n\n/* Mobile should be on its side */\n\n\n/* Times */\n.times {\n  max-width: 6rem;\n  min-height: 28rem;\n  overflow-y: scroll;\n  padding-right: 3px;\n  border: none;\n}\n\n.times .btn {\n  font-size: 1.1rem;\n  display: flex;\n  flex-wrap: nowrap;\n  padding: 15px;\n  margin-bottom: 5%;\n}\n\n.btn:disabled {\n  background: green !important;\n}\n\n/* Small devices (landscape phones, 576px and up) */\n@media (max-width: 576px) {\n\n}\n\n/* Medium devices (tablets, 768px and up) */\n@media (max-width: 768px) {\n  .datetime-picker {\n    flex-direction: column;\n  }\n  .times {\n    justify-content: flex-start;\n    flex-direction: row;\n  }\n}\n\n/* Large devices (desktops, 992px and up) */\n@media (max-width: 992px) {\n\n }\n\n/* Extra large devices (large desktops, 1200px and up) */\n@media (max-width: 1200px) {\n\n }\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

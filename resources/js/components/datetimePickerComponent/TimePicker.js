@@ -84,7 +84,7 @@ const TimePicker = ({ selectedDate, allUnavailableDateTimes, minMaxDayTimes, ste
   }, [times])
 
   return (
-    <div className="card times d-flex">
+    <div className="card times d-flex ">
       <input type="time" value={selectedTime} name="time-input" id="time-input" className="d-none"/>
       {times.length > 0 &&
           times.map((time) => (
@@ -92,6 +92,11 @@ const TimePicker = ({ selectedDate, allUnavailableDateTimes, minMaxDayTimes, ste
             {time}
           </button>
           )
+      )}
+      {times.length === 0 && (
+        <div className="text-center pt-4">
+          No Available Times
+        </div>
       )}
     </div>
    );

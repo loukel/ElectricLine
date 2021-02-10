@@ -16,21 +16,21 @@
   <div class="d-flex justify-content-center">
     <div class="w-75 p-2 card">
       <div class="card-body">
-        <div class="card-title h2">
+        <div class="card-title h2 mb-0">
           Date and Time
         </div>
         <form
           action="{{ route('services.book.process-datetime', request()->route('slug')) }}"
           method="POST" class="book">
           @csrf
-          <div id="datetime-picker"></div>
+          <div class="form-group" id="datetime-picker"></div>
           <button class="btn btn-success w-100" type="submit" name="submit">Next</button>
         </form>
+        <div class="h5">
+          <span class="text-muted" id="datetime-display"></span>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
 @endsection

@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+.date-picker {
+  border: none;
+}
+
 .arrow, .month-year {
   font-size: 18pt;
 }
@@ -45,10 +49,11 @@ th.selected span {
 
 /* Times */
 .times {
-  max-width: fit-content;
-  max-height: 30rem;
+  max-width: 6rem;
+  min-height: 28rem;
   overflow-y: scroll;
   padding-right: 3px;
+  border: none;
 }
 
 .times .btn {
@@ -64,12 +69,12 @@ th.selected span {
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
 
 }
 
 /* Medium devices (tablets, 768px and up) */
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
   .datetime-picker {
     flex-direction: column;
   }
@@ -80,11 +85,11 @@ th.selected span {
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (max-width: 992px) { 
-  
+@media (max-width: 992px) {
+
  }
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (max-width: 1200px) { 
+@media (max-width: 1200px) {
 
  }
