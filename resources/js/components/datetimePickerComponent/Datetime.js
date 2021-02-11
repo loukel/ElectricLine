@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TimePicker from "./TimePicker";
-import { getMinutes, getMonthsCal, numberToTwoChar, time, today} from "./dtFunctions";
+import { getMinutes, getMonthsCal, numberToTwoChar, time, today, timeConvert } from "./dtFunctions";
 
 function addDays(date, days) {
   var result = new Date(date);
@@ -289,6 +289,12 @@ const Datetime = ({ minDate, maxDate }) => {
     }
   }
 
+  // Incredibly ugly time transfer from child to parent
+  var [ selectedTime, setSelectedTime ] = useState('');
+  const passSelectedTime = (time) => {
+    setSelectedTime(time)
+  }
+
   return (
     <div className='datetime-picker py-4 d-flex justify-content-center'>
       <div className="card card-body date-picker">
@@ -329,8 +335,11 @@ const Datetime = ({ minDate, maxDate }) => {
               ))}
           </tbody>
         </table>
+        <div className="h5 position-static">
+          <span className="text-muted">{new Date(selectedDate).toDateString()} at {timeConvert(selectedTime)}</span>
+        </div>
       </div>
-      <TimePicker selectedDate={selectedDate} minMaxDayTimes={minMaxDayTimes} step={15} />
+      <TimePicker selectedDate={selectedDate} minMaxDayTimes={minMaxDayTimes} step={15} passSelectedTime={passSelectedTime}/>
     </div>
   );
 }

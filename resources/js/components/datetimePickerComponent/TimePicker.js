@@ -39,7 +39,7 @@ const generateTimes = (minTime='00:00', maxTime='24:00', step=15, unavailableTim
   return times;
 }
 
-const TimePicker = ({ selectedDate, minMaxDayTimes, step }) => {
+const TimePicker = ({ selectedDate, minMaxDayTimes, step, passSelectedTime }) => {
   /**
    * 24 hr time to store
    * min and max time is defined based off what day it is
@@ -95,23 +95,25 @@ const TimePicker = ({ selectedDate, minMaxDayTimes, step }) => {
 
       setTimes(generateTimes(minTime, maxTime, step, unavailableTimes));
     });
-//2021-02-17
   }, [selectedDate]);
 
   useEffect(() => {
     if (times.length == 0) {
       setSelectedTime(-1)
     } else {
-      setSelectedTime(times[0])
+      setSelectedTime(times[0]);
+      passSelectedTime(times[0]);
+      // ^ ugly time transfer
     }
   }, [times])
+
 
   return (
     <div className="card times d-flex ">
       <input type="time" value={selectedTime} name="time-input" id="time-input" className="d-none" readOnly/>
       {times.length > 0 &&
           times.map((time) => (
-          <button  type="button" key={time} className="btn btn-secondary" onClick={() => setSelectedTime(time)} disabled={time == selectedTime && true}>
+          <button  type="button" key={time} className="btn btn-secondary" onClick={() => {setSelectedTime(time); passSelectedTime(time); }} disabled={time == selectedTime && true}>
             {time}
           </button>
           )

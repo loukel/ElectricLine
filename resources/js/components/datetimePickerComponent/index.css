@@ -52,6 +52,7 @@ th.selected span {
   max-width: 6rem;
   min-height: 28rem;
   overflow-y: scroll;
+  scroll-behavior: smooth;
   padding-right: 3px;
   border: none;
 }

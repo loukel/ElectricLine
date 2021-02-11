@@ -45,7 +45,7 @@ function getMonthsCal(yearIndex, monthIndex) {
 
   let monthsCalender = [];
   let row = [];
-  
+
   // Start the month's calender with the final days of the previous month
   const daysInPrevMonth = totalDaysInMonth(yearIndex, monthIndex - 1);
   var prevDaysStart = daysInPrevMonth - (firstDay - 1);
@@ -65,8 +65,8 @@ function getMonthsCal(yearIndex, monthIndex) {
       // Every Saturday, start a new row, starting with Sunday
       dayIndex = 0;
       monthsCalender.push(row);
-      // If this is the last loop, another row will not be created 
-      if (dateDay !== daysInMonth) 
+      // If this is the last loop, another row will not be created
+      if (dateDay !== daysInMonth)
         row = [];
     } else {
       dayIndex++;
@@ -121,7 +121,7 @@ const getMinutes = (hoursMinutes) => {
 
 /**
  * converts minutes into the 24 hour time format
- * @param {number} minutes 
+ * @param {number} minutes
  */
 const turnInto24Hour = (minutes) => {
   var hour = Math.floor(minutes / 60);
@@ -133,4 +133,16 @@ const turnInto24Hour = (minutes) => {
   return `${hour}:${minute}`;
 }
 
-export { getMonthsCal, numberToTwoChar, today, time, getMinutes, turnInto24Hour }
+function timeConvert (time) {
+  // Check correct time format and split into components
+  time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+  if (time.length > 1) { // If time format correct
+    time = time.slice (1);  // Remove full string match value
+    time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+    time[0] = +time[0] % 12 || 12; // Adjust hours
+  }
+  return time.join (''); // return adjusted time or original string
+}
+
+export { getMonthsCal, numberToTwoChar, today, time, getMinutes, turnInto24Hour, timeConvert }

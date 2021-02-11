@@ -2283,7 +2283,17 @@ var Datetime = function Datetime(_ref) {
         setDay(date.slice(8, 10));
       }
     }
-  }
+  } // Incredibly ugly time transfer from child to parent
+
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState14 = _slicedToArray(_useState13, 2),
+      selectedTime = _useState14[0],
+      setSelectedTime = _useState14[1];
+
+  var passSelectedTime = function passSelectedTime(time) {
+    setSelectedTime(time);
+  };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "datetime-picker py-4 d-flex justify-content-center",
@@ -2350,11 +2360,18 @@ var Datetime = function Datetime(_ref) {
             }, row);
           })
         })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "h5 position-static",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+          className: "text-muted",
+          children: [new Date(selectedDate).toDateString(), " at ", (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.timeConvert)(selectedTime)]
+        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TimePicker__WEBPACK_IMPORTED_MODULE_1__.default, {
       selectedDate: selectedDate,
       minMaxDayTimes: minMaxDayTimes,
-      step: 15
+      step: 15,
+      passSelectedTime: passSelectedTime
     })]
   });
 };
@@ -2481,7 +2498,8 @@ var generateTimes = function generateTimes() {
 var TimePicker = function TimePicker(_ref5) {
   var selectedDate = _ref5.selectedDate,
       minMaxDayTimes = _ref5.minMaxDayTimes,
-      step = _ref5.step;
+      step = _ref5.step,
+      passSelectedTime = _ref5.passSelectedTime;
 
   /**
    * 24 hr time to store
@@ -2540,13 +2558,14 @@ var TimePicker = function TimePicker(_ref5) {
         return [timeframe['start'], timeframe['end']];
       });
       setTimes(generateTimes(minTime, maxTime, step, unavailableTimes));
-    }); //2021-02-17
+    });
   }, [selectedDate]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (times.length == 0) {
       setSelectedTime(-1);
     } else {
       setSelectedTime(times[0]);
+      passSelectedTime(times[0]); // ^ ugly time transfer
     }
   }, [times]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -2563,7 +2582,8 @@ var TimePicker = function TimePicker(_ref5) {
         type: "button",
         className: "btn btn-secondary",
         onClick: function onClick() {
-          return setSelectedTime(time);
+          setSelectedTime(time);
+          passSelectedTime(time);
         },
         disabled: time == selectedTime && true,
         children: time
@@ -2593,7 +2613,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "today": () => /* binding */ today,
 /* harmony export */   "time": () => /* binding */ time,
 /* harmony export */   "getMinutes": () => /* binding */ getMinutes,
-/* harmony export */   "turnInto24Hour": () => /* binding */ turnInto24Hour
+/* harmony export */   "turnInto24Hour": () => /* binding */ turnInto24Hour,
+/* harmony export */   "timeConvert": () => /* binding */ timeConvert
 /* harmony export */ });
 /**
  * Get the day name of the first day. E.g. The first day of Feb 2021 starts on a Monday -> returns 1
@@ -2659,7 +2680,7 @@ function getMonthsCal(yearIndex, monthIndex) {
     if (dayIndex === 6) {
       // Every Saturday, start a new row, starting with Sunday
       dayIndex = 0;
-      monthsCalender.push(row); // If this is the last loop, another row will not be created 
+      monthsCalender.push(row); // If this is the last loop, another row will not be created
 
       if (dateDay !== daysInMonth) row = [];
     } else {
@@ -2718,7 +2739,7 @@ var getMinutes = function getMinutes(hoursMinutes) {
 };
 /**
  * converts minutes into the 24 hour time format
- * @param {number} minutes 
+ * @param {number} minutes
  */
 
 
@@ -2729,6 +2750,22 @@ var turnInto24Hour = function turnInto24Hour(minutes) {
   minute = numberToTwoChar(minute);
   return "".concat(hour, ":").concat(minute);
 };
+
+function timeConvert(time) {
+  // Check correct time format and split into components
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+  if (time.length > 1) {
+    // If time format correct
+    time = time.slice(1); // Remove full string match value
+
+    time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+
+    time[0] = +time[0] % 12 || 12; // Adjust hours
+  }
+
+  return time.join(''); // return adjusted time or original string
+}
 
 
 
@@ -7161,9 +7198,9 @@ var turnInto24Hour = function turnInto24Hour(minutes) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/js/components/datetimePickerComponent/index.css":
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./resources/js/components/datetimePickerComponent/index.css":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/js/components/datetimePickerComponent/index.css ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./resources/js/components/datetimePickerComponent/index.css ***!
   \*****************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -7178,7 +7215,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".datetime-picker {\n  max-height: 30rem;\n  flex-direction: row;\n  width: 100%;\n}\n\n.date-picker {\n  border: none;\n}\n\n.arrow, .month-year {\n  font-size: 18pt;\n}\n\nth:hover {\n  cursor: pointer;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\ntr {\n  text-align: center;\n}\n\nth {\n  color: #6c757d;\n}\nth.this-month-cell {\n  color:black;\n}\n\nth.selected span {\n  border-radius: 1.5rem;\n  padding: 0.5rem;\n  background: #007bff;\n}\n\n.month-navigator:active, .month-navigator:focus {\n  outline:0px !important;\n  -webkit-appearance:none;\n  box-shadow: none !important;\n}\n.month-year {\n  min-width: 50%;\n  text-align: center;\n}\n\n/* Mobile should be on its side */\n\n\n/* Times */\n.times {\n  max-width: 6rem;\n  min-height: 28rem;\n  overflow-y: scroll;\n  padding-right: 3px;\n  border: none;\n}\n\n.times .btn {\n  font-size: 1.1rem;\n  display: flex;\n  flex-wrap: nowrap;\n  padding: 15px;\n  margin-bottom: 5%;\n}\n\n.btn:disabled {\n  background: green !important;\n}\n\n/* Small devices (landscape phones, 576px and up) */\n@media (max-width: 576px) {\n\n}\n\n/* Medium devices (tablets, 768px and up) */\n@media (max-width: 768px) {\n  .datetime-picker {\n    flex-direction: column;\n  }\n  .times {\n    justify-content: flex-start;\n    flex-direction: row;\n  }\n}\n\n/* Large devices (desktops, 992px and up) */\n@media (max-width: 992px) {\n\n }\n\n/* Extra large devices (large desktops, 1200px and up) */\n@media (max-width: 1200px) {\n\n }\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".datetime-picker {\n  max-height: 30rem;\n  flex-direction: row;\n  width: 100%;\n}\n\n.date-picker {\n  border: none;\n}\n\n.arrow, .month-year {\n  font-size: 18pt;\n}\n\nth:hover {\n  cursor: pointer;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\ntr {\n  text-align: center;\n}\n\nth {\n  color: #6c757d;\n}\nth.this-month-cell {\n  color:black;\n}\n\nth.selected span {\n  border-radius: 1.5rem;\n  padding: 0.5rem;\n  background: #007bff;\n}\n\n.month-navigator:active, .month-navigator:focus {\n  outline:0px !important;\n  -webkit-appearance:none;\n  box-shadow: none !important;\n}\n.month-year {\n  min-width: 50%;\n  text-align: center;\n}\n\n/* Mobile should be on its side */\n\n\n/* Times */\n.times {\n  max-width: 6rem;\n  min-height: 28rem;\n  overflow-y: scroll;\n  scroll-behavior: smooth;\n  padding-right: 3px;\n  border: none;\n}\n\n.times .btn {\n  font-size: 1.1rem;\n  display: flex;\n  flex-wrap: nowrap;\n  padding: 15px;\n  margin-bottom: 5%;\n}\n\n.btn:disabled {\n  background: green !important;\n}\n\n/* Small devices (landscape phones, 576px and up) */\n@media (max-width: 576px) {\n\n}\n\n/* Medium devices (tablets, 768px and up) */\n@media (max-width: 768px) {\n  .datetime-picker {\n    flex-direction: column;\n  }\n  .times {\n    justify-content: flex-start;\n    flex-direction: row;\n  }\n}\n\n/* Large devices (desktops, 992px and up) */\n@media (max-width: 992px) {\n\n }\n\n/* Extra large devices (large desktops, 1200px and up) */\n@media (max-width: 1200px) {\n\n }\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35312,6 +35349,19 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
   \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./resources/sass/main.scss":
+/*!**********************************!*\
+  !*** ./resources/sass/main.scss ***!
+  \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67601,7 +67651,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./index.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/js/components/datetimePickerComponent/index.css");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./index.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./resources/js/components/datetimePickerComponent/index.css");
 
             
 
@@ -67610,11 +67660,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__.default, options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
 
 /***/ }),
 
@@ -68006,7 +68056,8 @@ module.exports = function (list, options) {
 /******/ 		
 /******/ 		var deferredModules = [
 /******/ 			["./resources/js/app.js"],
-/******/ 			["./resources/sass/app.scss"]
+/******/ 			["./resources/sass/app.scss"],
+/******/ 			["./resources/sass/main.scss"]
 /******/ 		];
 /******/ 		// no chunk on demand loading
 /******/ 		
