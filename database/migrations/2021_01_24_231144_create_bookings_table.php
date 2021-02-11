@@ -25,8 +25,9 @@ class CreateBookingsTable extends Migration
             $table->foreign('provider_id')->references('id')->on('users');
             $table->string('status')->nullable();
             $table->float('total');
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->date('date');
+            $table->time('start');
+            $table->time('end');
             $table->timestamps();
         });
     }

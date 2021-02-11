@@ -93,8 +93,7 @@ class BookingController extends Controller
       // Get session booking
       $booking = $request->session()->get('booking');
 
-      // Get datetime
-      $startDatetime = date('Y-m-d H:i:s', strtotime(request('datetime')));
+      // $startDatetime = date('Y-m-d H:i:s', strtotime(request('datetime')));
 
       // Provider id set to the provider available TBC
       // Need to evaluate whether the provider is busy or not
@@ -106,11 +105,17 @@ class BookingController extends Controller
       // Get the service variant model
       $serviceVariant = ServiceVariant::find($booking->service_variant_id);
 
-      // Set start and end datetime
-      $booking->start = $startDatetime;
+      // Get date & time
+      $date = request('date-input');
+      $startTime = request('time-input');
 
       $duration = $serviceVariant->duration;
-      $booking->end = date('Y-m-d H:i:s', strtotime('+60 minutes', strtotime($startDatetime)));
+      $endTime = date('H:i:s', strtotime("+$duration minutes", strtotime($startTime)));
+
+      // Set the date and time
+      $booking->date = $date;
+      $booking->start = $startTime;
+      $booking->end = $endTime;
 
       // Set total
       $booking->total = $serviceVariant->price;

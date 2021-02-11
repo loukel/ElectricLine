@@ -50,7 +50,8 @@ class Booking extends Model {
    */
   public function dateDisplay() {
     // Thursday 4th 2021
-    return date('l jS F, Y', strtotime($this->start));
+    // return date('l jS F, Y', strtotime($this->start));
+    return date('l jS F, Y', strtotime($this->date));
   }
 
   /**
