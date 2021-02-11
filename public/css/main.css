@@ -11,14 +11,34 @@ form.book button[type=submit] {
   font-size: 1.1rem;
 }
 
-.xdsoft_datetimepicker {
-  margin-top: 10px;
-  border: 0 !important;
-  display: flex !important;
-  justify-content: center;
-  min-width: 100%;
-}
 tr:hover {
   background-color: #ebebeb;
   cursor: pointer;
+}
+
+main {
+  -webkit-animation: fadein 1s;
+  /* Safari, Chrome and Opera > 12.1 */
+  /* Firefox < 16 */
+  /* Internet Explorer */
+  /* Opera < 12.1 */
+  animation: fadein 1s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

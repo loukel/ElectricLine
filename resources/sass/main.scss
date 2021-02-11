@@ -10,18 +10,24 @@ form.book {
   }
 }
 
-.xdsoft_datetimepicker {
-  margin-top: 10px;
-  border: 0 !important;
-  display: flex !important;
-  justify-content: center;
-  min-width: 100%;
-  .xdsoft_datepicker {
-    // min-width: 60%;
-  }
-}
-
 tr:hover {
   background-color: rgb(235, 235, 235);
   cursor: pointer;
+}
+
+main {
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  -ms-animation: fadein 1s; /* Internet Explorer */
+  -o-animation: fadein 1s; /* Opera < 12.1 */
+  animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

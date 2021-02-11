@@ -24,6 +24,7 @@ Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
 
       Route::get('/datetime', 'BookingController@datetime')->name('datetime');
 
+      // APIs for datetime picker
       Route::post('/min-max-times', 'BookingController@minMaxTimes')->name('minMaxTimes');
       Route::post('/unavailable-times', 'BookingController@unavailableTimes')->name('unavailableTimes');
 
