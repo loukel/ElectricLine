@@ -23,6 +23,10 @@ Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
       Route::post('/processVariant', 'BookingController@processVariant')->name('process-variant');
 
       Route::get('/datetime', 'BookingController@datetime')->name('datetime');
+
+      Route::post('/min-max-times', 'BookingController@minMaxTimes')->name('minMaxTimes');
+      Route::post('/unavailable-times', 'BookingController@unavailableTimes')->name('unavailableTimes');
+
       Route::post('/processDatetime', 'BookingController@processDatetime')->name('process-datetime');
 
       Route::get('/pay', 'BookingController@pay')->name('pay');
@@ -37,6 +41,5 @@ Route::group(['prefix' => 'bookings', 'as' => 'bookings.', 'middleware' => ['aut
   Route::get('/', 'BookingController@index')->name('index');
   Route::get('/{id}', 'BookingController@show')->name('show');
 });
-
 
 

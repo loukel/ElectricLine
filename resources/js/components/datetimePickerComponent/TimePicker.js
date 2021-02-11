@@ -39,7 +39,7 @@ const generateTimes = (minTime='00:00', maxTime='24:00', step=15, unavailableTim
   return times;
 }
 
-const TimePicker = ({ selectedDate, allUnavailableDateTimes, minMaxDayTimes, step }) => {
+const TimePicker = ({ selectedDate, minMaxDayTimes, step }) => {
   /**
    * 24 hr time to store
    * min and max time is defined based off what day it is
@@ -70,9 +70,32 @@ const TimePicker = ({ selectedDate, allUnavailableDateTimes, minMaxDayTimes, ste
       minTime = turnInto24Hour(minTimeInMins);
     }
 
-    var unavailableTimes =  allUnavailableDateTimes[selectedDate];
+    // Get unavailable times - change to a fetch function as it is repeated
+    const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
 
-    setTimes(generateTimes(minTime, maxTime, step, unavailableTimes));
+    const headers = new Headers({
+      'X-CSRF-TOKEN': csrfToken,
+    })
+
+    // Pass date
+    let params = new URLSearchParams();
+    params.append('date', selectedDate);
+
+    fetch('unavailable-times', {
+      method: 'POST',
+      headers,
+      body: params
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error))
+    .then(data => {
+      var unavailableTimes = Object.values(data).map((timeframe) => {
+        return [timeframe['start'], timeframe['end']];
+      })
+
+      setTimes(generateTimes(minTime, maxTime, step, unavailableTimes));
+    });
+//2021-02-17
   }, [selectedDate]);
 
   useEffect(() => {
@@ -85,10 +108,10 @@ const TimePicker = ({ selectedDate, allUnavailableDateTimes, minMaxDayTimes, ste
 
   return (
     <div className="card times d-flex ">
-      <input type="time" value={selectedTime} name="time-input" id="time-input" className="d-none"/>
+      <input type="time" value={selectedTime} name="time-input" id="time-input" className="d-none" readOnly/>
       {times.length > 0 &&
           times.map((time) => (
-          <button  type="button" className="btn btn-secondary" onClick={() => setSelectedTime(time)} disabled={time == selectedTime && 'true'}>
+          <button  type="button" key={time} className="btn btn-secondary" onClick={() => setSelectedTime(time)} disabled={time == selectedTime && true}>
             {time}
           </button>
           )

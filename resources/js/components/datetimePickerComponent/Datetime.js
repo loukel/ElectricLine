@@ -47,30 +47,44 @@ const Datetime = ({ minDate, maxDate }) => {
    * unavailable datetimes -/
    */
 
-  const allUnavailableDateTimes = {
-    '2021-02-10': [
-      ['12:00', '14:00'],
-      ['16:00', '16:30'],
-    ],
-    '2021-02-11': [
-      ['14:00', '14:30'],
-      ['16:00', '18:30'],
-    ],
-    '2021-02-12': [
-      ['09:00', '20:30'],
-    ],
-  }
 
-  const minMaxDayTimes = [
+  // set minMaxDayTimes
+  const [ minMaxDayTimes , setMinMaxDayTimes ] = useState([
+    // Default
     ['09:00', '20:30'], // Sunday
     ['09:00', '20:30'], // Monday
-    ['12:00', '20:30'], // Tuesday
+    ['09:00', '20:30'], // Tuesday
     ['09:00', '20:30'], // Wednesday
     ['09:00', '20:30'], // Thursday
     ['09:00', '20:30'], // Friday
-    ['10:00', '20:30'], // Saturday
+    ['09:00', '20:30'], // Saturday
     'now'           // Today
-  ]
+  ]);
+
+  // Set the min and start times for days
+  useEffect(() => {
+    const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': csrfToken,
+    })
+
+    fetch('min-max-times', {
+      method: 'POST',
+      headers,
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error))
+    .then(data => {
+      var dayTimes = Object.values(data).map((timeframe) => {
+        var timeframeArray = timeframe.split('-');
+        return [timeframeArray[0],timeframeArray[1]];
+      });
+      dayTimes.push('now');
+      setMinMaxDayTimes(dayTimes);
+    });
+  }, [])
 
   // - repeated function from TimePicker maybe add to dtFunctions
   var minTimeInMins;
@@ -278,11 +292,11 @@ const Datetime = ({ minDate, maxDate }) => {
   return (
     <div className='datetime-picker py-4 d-flex justify-content-center'>
       <div className="card card-body date-picker">
-        <input type="datetime" value={selectedDate} class="mb-4 text-center d-none" name="date-input" id="date-input"/>
+        <input type="datetime" value={selectedDate} className="mb-4 text-center d-none" name="date-input" id="date-input" readOnly/>
         <div className="d-flex justify-content-center">
-          <button type="button" class="btn btn-default btn-arrow-left month-navigator" onClick={prevMonth}>Previous</button>
-          <span class="month-year">{getDisplayMonthYear(monthYear)}</span>
-          <button type="button" class="btn btn-default btn-arrow-right month-navigator" onClick={nextMonth}>Next</button>
+          <button type="button" className="btn btn-default btn-arrow-left month-navigator" onClick={prevMonth}>Previous</button>
+          <span className="month-year">{getDisplayMonthYear(monthYear)}</span>
+          <button type="button" className="btn btn-default btn-arrow-right month-navigator" onClick={nextMonth}>Next</button>
         </div>
         <table className="table table-bordered dates">
           <thead>
@@ -299,7 +313,7 @@ const Datetime = ({ minDate, maxDate }) => {
 
           <tbody>
             { currentCalender.map((row) => (
-              <tr>
+              <tr key={row}>
                 {row.map((date) => (
                   <th key={date} id={date} onClick={() => selectDate(date)} className={
                     new Date(date).getMonth() + 1 == monthYear.slice(5,7) &&
@@ -316,7 +330,7 @@ const Datetime = ({ minDate, maxDate }) => {
           </tbody>
         </table>
       </div>
-      <TimePicker selectedDate={selectedDate} allUnavailableDateTimes={allUnavailableDateTimes} minMaxDayTimes={minMaxDayTimes} step={15} />
+      <TimePicker selectedDate={selectedDate} minMaxDayTimes={minMaxDayTimes} step={15} />
     </div>
   );
 }

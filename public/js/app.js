@@ -2036,20 +2036,44 @@ var Datetime = function Datetime(_ref) {
    * days time -> Friday: '07-20' -/
    * unavailable datetimes -/
    */
-  var allUnavailableDateTimes = {
-    '2021-02-10': [['12:00', '14:00'], ['16:00', '16:30']],
-    '2021-02-11': [['14:00', '14:30'], ['16:00', '18:30']],
-    '2021-02-12': [['09:00', '20:30']]
-  };
-  var minMaxDayTimes = [['09:00', '20:30'], // Sunday
+  // set minMaxDayTimes
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([// Default
+  ['09:00', '20:30'], // Sunday
   ['09:00', '20:30'], // Monday
-  ['12:00', '20:30'], // Tuesday
+  ['09:00', '20:30'], // Tuesday
   ['09:00', '20:30'], // Wednesday
   ['09:00', '20:30'], // Thursday
   ['09:00', '20:30'], // Friday
-  ['10:00', '20:30'], // Saturday
+  ['09:00', '20:30'], // Saturday
   'now' // Today
-  ]; // - repeated function from TimePicker maybe add to dtFunctions
+  ]),
+      _useState2 = _slicedToArray(_useState, 2),
+      minMaxDayTimes = _useState2[0],
+      setMinMaxDayTimes = _useState2[1]; // Set the min and start times for days
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': csrfToken
+    });
+    fetch('min-max-times', {
+      method: 'POST',
+      headers: headers
+    }).then(function (response) {
+      return response.json();
+    })["catch"](function (error) {
+      return console.error('Error:', error);
+    }).then(function (data) {
+      var dayTimes = Object.values(data).map(function (timeframe) {
+        var timeframeArray = timeframe.split('-');
+        return [timeframeArray[0], timeframeArray[1]];
+      });
+      dayTimes.push('now');
+      setMinMaxDayTimes(dayTimes);
+    });
+  }, []); // - repeated function from TimePicker maybe add to dtFunctions
 
   var minTimeInMins;
   var maxTimeInMins;
@@ -2096,10 +2120,10 @@ var Datetime = function Datetime(_ref) {
     maxDate = unformattedDate;
   }
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(minDate),
-      _useState2 = _slicedToArray(_useState, 2),
-      selectedDate = _useState2[0],
-      setSelectedDate = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(minDate),
+      _useState4 = _slicedToArray(_useState3, 2),
+      selectedDate = _useState4[0],
+      setSelectedDate = _useState4[1];
 
   var updateSelectedDate = function updateSelectedDate() {
     var monthYear_ = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : monthYear;
@@ -2133,20 +2157,20 @@ var Datetime = function Datetime(_ref) {
 
   var monthsYears = dateRange(minDate, maxDate);
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState4 = _slicedToArray(_useState3, 2),
-      monthIndex = _useState4[0],
-      setMonthIndex = _useState4[1];
-
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(monthsYears[monthIndex]),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState6 = _slicedToArray(_useState5, 2),
-      monthYear = _useState6[0],
-      setMonthYear = _useState6[1];
+      monthIndex = _useState6[0],
+      setMonthIndex = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(minDate.split('-')[2]),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(monthsYears[monthIndex]),
       _useState8 = _slicedToArray(_useState7, 2),
-      day = _useState8[0],
-      setDay = _useState8[1];
+      monthYear = _useState8[0],
+      setMonthYear = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(minDate.split('-')[2]),
+      _useState10 = _slicedToArray(_useState9, 2),
+      day = _useState10[0],
+      setDay = _useState10[1];
 
   var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -2173,10 +2197,10 @@ var Datetime = function Datetime(_ref) {
   var MY = new Date(monthYear);
   var month = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.getMonthsCal)(MY.getFullYear(), MY.getMonth());
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState10 = _slicedToArray(_useState9, 2),
-      currentCalender = _useState10[0],
-      setCurrentCalender = _useState10[1]; // Get date keys
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState12 = _slicedToArray(_useState11, 2),
+      currentCalender = _useState12[0],
+      setCurrentCalender = _useState12[1]; // Get date keys
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -2268,22 +2292,23 @@ var Datetime = function Datetime(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
         type: "datetime",
         value: selectedDate,
-        "class": "mb-4 text-center d-none",
+        className: "mb-4 text-center d-none",
         name: "date-input",
-        id: "date-input"
+        id: "date-input",
+        readOnly: true
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "d-flex justify-content-center",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           type: "button",
-          "class": "btn btn-default btn-arrow-left month-navigator",
+          className: "btn btn-default btn-arrow-left month-navigator",
           onClick: prevMonth,
           children: "Previous"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          "class": "month-year",
+          className: "month-year",
           children: getDisplayMonthYear(monthYear)
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           type: "button",
-          "class": "btn btn-default btn-arrow-right month-navigator",
+          className: "btn btn-default btn-arrow-right month-navigator",
           onClick: nextMonth,
           children: "Next"
         })]
@@ -2322,13 +2347,12 @@ var Datetime = function Datetime(_ref) {
                   })
                 }, date);
               })
-            });
+            }, row);
           })
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TimePicker__WEBPACK_IMPORTED_MODULE_1__.default, {
       selectedDate: selectedDate,
-      allUnavailableDateTimes: allUnavailableDateTimes,
       minMaxDayTimes: minMaxDayTimes,
       step: 15
     })]
@@ -2456,7 +2480,6 @@ var generateTimes = function generateTimes() {
 
 var TimePicker = function TimePicker(_ref5) {
   var selectedDate = _ref5.selectedDate,
-      allUnavailableDateTimes = _ref5.allUnavailableDateTimes,
       minMaxDayTimes = _ref5.minMaxDayTimes,
       step = _ref5.step;
 
@@ -2494,10 +2517,30 @@ var TimePicker = function TimePicker(_ref5) {
 
       var minTimeInMins = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_1__.getMinutes)((0,_dtFunctions__WEBPACK_IMPORTED_MODULE_1__.time)()) + addedMins;
       minTime = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_1__.turnInto24Hour)(minTimeInMins);
-    }
+    } // Get unavailable times - change to a fetch function as it is repeated
 
-    var unavailableTimes = allUnavailableDateTimes[selectedDate];
-    setTimes(generateTimes(minTime, maxTime, step, unavailableTimes));
+
+    var csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
+    var headers = new Headers({
+      'X-CSRF-TOKEN': csrfToken
+    }); // Pass date
+
+    var params = new URLSearchParams();
+    params.append('date', selectedDate);
+    fetch('unavailable-times', {
+      method: 'POST',
+      headers: headers,
+      body: params
+    }).then(function (response) {
+      return response.json();
+    })["catch"](function (error) {
+      return console.error('Error:', error);
+    }).then(function (data) {
+      var unavailableTimes = Object.values(data).map(function (timeframe) {
+        return [timeframe['start'], timeframe['end']];
+      });
+      setTimes(generateTimes(minTime, maxTime, step, unavailableTimes));
+    }); //2021-02-17
   }, [selectedDate]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (times.length == 0) {
@@ -2513,7 +2556,8 @@ var TimePicker = function TimePicker(_ref5) {
       value: selectedTime,
       name: "time-input",
       id: "time-input",
-      className: "d-none"
+      className: "d-none",
+      readOnly: true
     }), times.length > 0 && times.map(function (time) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
         type: "button",
@@ -2521,9 +2565,9 @@ var TimePicker = function TimePicker(_ref5) {
         onClick: function onClick() {
           return setSelectedTime(time);
         },
-        disabled: time == selectedTime && 'true',
+        disabled: time == selectedTime && true,
         children: time
-      });
+      }, time);
     }), times.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "text-center pt-4",
       children: "No Available Times"

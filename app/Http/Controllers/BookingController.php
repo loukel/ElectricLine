@@ -88,12 +88,21 @@ class BookingController extends Controller
     return view('services.book.datetime');
   }
 
+  public function minMaxTimes($slug) {
+    return Service::select('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday')->where('slug', $slug)->first();
+  }
+
+  public function unavailableTimes($slug) {
+    $date = $_POST['date'];
+
+    // Takes into account bookings of any service by any provider -> bookings only use one provider for now
+    return Booking::select('start', 'end')->where('date', $date)->get();
+  }
+
   public function processDatetime(Request $request, $slug) {
     if (isset($_POST['submit'])) {
       // Get session booking
       $booking = $request->session()->get('booking');
-
-      // $startDatetime = date('Y-m-d H:i:s', strtotime(request('datetime')));
 
       // Provider id set to the provider available TBC
       // Need to evaluate whether the provider is busy or not

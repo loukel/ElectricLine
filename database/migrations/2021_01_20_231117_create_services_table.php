@@ -17,6 +17,13 @@ class CreateServicesTable extends Migration
         $table->id();
         $table->string('name');
         $table->string('slug');
+        $table->string('sunday', 11)->default('09:00-20:00');
+        $table->string('monday', 11)->default('09:00-20:00');
+        $table->string('tuesday', 11)->default('09:00-20:00');
+        $table->string('wednesday', 11)->default('09:00-20:00');
+        $table->string('thursday', 11)->default('09:00-20:00');
+        $table->string('friday', 11)->default('09:00-20:00');
+        $table->string('saturday', 11)->default('09:00-20:00');
         $table->timestamps();
       });
     }
