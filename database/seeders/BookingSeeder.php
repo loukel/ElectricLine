@@ -19,6 +19,29 @@ class BookingSeeder extends Seeder
      */
     public function run()
     {
-        //
+      // ! NOT COMPLETE, POSTPONED
+
+      /**
+       * Create address/use address
+       * Select variant
+       * Select Customer / create customer
+       * Create booking
+       * Time and date not at a time missing
+       */
+      // Get array of service variant ids
+      $svIDs = ServiceVariant::select('id')->get();
+      $svIDsArray = [];
+
+      foreach ($svIDs as $value) {
+        $svIDsArray[] = $value['id'];
+      }
+
+      // Get all customers
+      $customers = Customer::all();
+
+      foreach ($customers as $value) {
+        $serviceVariantId = $faker->randomElement($array = $svIDsArray);
+
+      }
     }
 }

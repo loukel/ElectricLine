@@ -9,8 +9,8 @@
   <div
     class="alert alert-success {{ session('success') ? '' : 'd-none' }}"
     role="alert" id="booking-confirmation">
-    Your booking is complete. You can view it here <a href="{{ session('success') }}"
-      class="alert-link">Booking ID - {{ session('success') }}</a>
+    Your booking is complete. You can view all your bookings here - <a href="{{ route('bookings.index') }}"
+      class="alert-link">My Bookings</a>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick=>
       <span aria-hidden="true">&times;</span>
     </button>

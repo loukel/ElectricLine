@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
+use DB;
 
+// Models
 use App\Models\Booking;
 use App\Models\Address;
 use App\Models\Service;
@@ -32,7 +34,7 @@ class BookingController extends Controller
         // Create new address
         $validated = $request->validate([
           'street' => 'required',
-          'postcode' => 'required|max:8',
+          'postcode' => 'required|max:10',
           'city' => 'required|string',
         ]);
 
@@ -180,36 +182,36 @@ class BookingController extends Controller
     $booking = $request->session()->get('booking');
 
     // Store the booking with a transaction
-    DB::transaction(function () {
+    DB::transaction(function () use ($booking) {
+      $booking->status = 'processed';
       $booking->save();
     });
 
-    return redirect(route('services.index'))->with('success', $booking->id);
+    return redirect(route('services.index'))->with('success', true);
   }
 
   public function index() {
-    if (Auth::user()->provider()) {
+    if (Auth::user()->provider())
       $bookings = Booking::where('provider_id', Auth::id())->paginate(10);
-    } elseif  (Auth::user()->customer()) {
-      $bookings = Booking::where('customer_id', Auth::id())->paginate(10);
-    }
+    elseif  (Auth::user()->customer())
+      $bookings = Booking::where('customer_id', Auth::id())->orderBy('date')->orderBy('start')->paginate(10);
+    else
+      redirect(url('/'));
 
     return view('bookings.index', compact('bookings'));
-
   }
 
+  // ! No show for now
   public function show($id) {
-    if (Auth::user()->provider()) {
+    if (Auth::user()->provider())
       $booking = Booking::where('id', $id)->where('provider_id', Auth::id())->first();
-    } elseif  (Auth::user()->customer()) {
+    elseif  (Auth::user()->customer())
       $booking = Booking::where('id', $id)->where('customer_id', Auth::id())->first();
-    }
 
-    if (!$booking) {
+    if (!$booking)
       return redirect('/');
-    } else {
+    else
       return view('bookings.show', compact('booking'));
-    }
 
   }
 }
