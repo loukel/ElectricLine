@@ -179,8 +179,10 @@ class BookingController extends Controller
     // Get the session booking
     $booking = $request->session()->get('booking');
 
-    // Store the booking
-    $booking->save();
+    // Store the booking with a transaction
+    DB::transaction(function () {
+      $booking->save();
+    });
 
     return redirect(route('services.index'))->with('success', $booking->id);
   }
