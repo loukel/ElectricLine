@@ -2296,9 +2296,9 @@ var Datetime = function Datetime(_ref) {
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "datetime-picker py-4 d-flex justify-content-center",
+    className: "datetime-picker mt-1 py-4 d-flex justify-content-center",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "card card-body date-picker",
+      className: "card date-picker mr-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
         type: "datetime",
         value: selectedDate,
@@ -2326,20 +2326,34 @@ var Datetime = function Datetime(_ref) {
         className: "table table-bordered dates",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-              children: "Sunday"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-              children: "Monday"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-              children: "Tuesday"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-              children: "Wednesday"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-              children: "Thurday"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-              children: "Friday"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-              children: "Saturday"
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+              children: ["Sun", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "day"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+              children: ["Mon", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "day"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+              children: ["Tue", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "sday"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+              children: ["Wed", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "nesday"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+              children: ["Thu", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "rday"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+              children: ["Fri", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "day"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("th", {
+              children: ["Sat", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                children: "urday"
+              })]
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
@@ -2352,26 +2366,24 @@ var Datetime = function Datetime(_ref) {
                     return selectDate(date);
                   },
                   className: new Date(date).getMonth() + 1 == monthYear.slice(5, 7) && typeof date != 'number' && new Date(date.slice(0, 4), date.slice(5, 7) - 1, date.slice(8, 10)) <= new Date(maxDate.slice(0, 4), maxDate.slice(5, 7) - 1, maxDate.slice(8, 10)) ? "this-month-cell ".concat(date == selectedDate ? 'selected' : '') : "",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                    children: typeof date == 'number' ? date : new Date(date).getDate()
-                  })
+                  children: typeof date == 'number' ? date : new Date(date).getDate()
                 }, date);
               })
             }, row);
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "h5 position-static",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
-          className: "text-muted",
-          children: [new Date(selectedDate).toDateString(), " at ", (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.timeConvert)(selectedTime)]
-        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_TimePicker__WEBPACK_IMPORTED_MODULE_1__.default, {
       selectedDate: selectedDate,
       minMaxDayTimes: minMaxDayTimes,
       step: 15,
       passSelectedTime: passSelectedTime
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "h5 position-absolute datetime-display",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+        className: "text-muted",
+        children: [new Date(selectedDate).toDateString(), " at ", (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.timeConvert)(selectedTime)]
+      })
     })]
   });
 };
@@ -7215,7 +7227,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".datetime-picker {\n  max-height: 30rem;\n  flex-direction: row;\n  width: 100%;\n}\n\n.date-picker {\n  border: none;\n}\n\n.arrow, .month-year {\n  font-size: 18pt;\n}\n\nth:hover {\n  cursor: pointer;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\ntr {\n  text-align: center;\n}\n\nth {\n  color: #6c757d;\n}\nth.this-month-cell {\n  color:black;\n}\n\nth.selected span {\n  border-radius: 1.5rem;\n  padding: 0.5rem;\n  background: #007bff;\n}\n\n.month-navigator:active, .month-navigator:focus {\n  outline:0px !important;\n  -webkit-appearance:none;\n  box-shadow: none !important;\n}\n.month-year {\n  min-width: 50%;\n  text-align: center;\n}\n\n/* Mobile should be on its side */\n\n\n/* Times */\n.times {\n  max-width: 6rem;\n  min-height: 28rem;\n  overflow-y: scroll;\n  scroll-behavior: smooth;\n  padding-right: 3px;\n  border: none;\n}\n\n.times .btn {\n  font-size: 1.1rem;\n  display: flex;\n  flex-wrap: nowrap;\n  padding: 15px;\n  margin-bottom: 5%;\n}\n\n.btn:disabled {\n  background: green !important;\n}\n\n/* Small devices (landscape phones, 576px and up) */\n@media (max-width: 576px) {\n\n}\n\n/* Medium devices (tablets, 768px and up) */\n@media (max-width: 768px) {\n  .datetime-picker {\n    flex-direction: column;\n  }\n  .times {\n    justify-content: flex-start;\n    flex-direction: row;\n  }\n}\n\n/* Large devices (desktops, 992px and up) */\n@media (max-width: 992px) {\n\n }\n\n/* Extra large devices (large desktops, 1200px and up) */\n@media (max-width: 1200px) {\n\n }\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".datetime-picker {\n  flex-direction: row;\n  min-width: 100%;\n  padding-top: 0.5rem !important;\n  padding-bottom: 0 !important;\n  margin-bottom: 1rem;\n}\n\n.date-picker {\n  border: none;\n  width: 90%;\n}\n\n.dates {\n  table-layout: fixed;\n}\n\n.arrow,\n.month-year {\n  font-size: 18pt;\n}\n\nth:hover {\n  cursor: pointer;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\ntr {\n  text-align: center;\n}\n\nth {\n  color: #6c757d;\n}\n\nth.this-month-cell {\n  color: black;\n}\n\nthead th:nth-child(4) {\n  padding: 0.8rem 0;\n}\n\n.selected {\n  /* background-color: #007BFF; */\n  background-color: #58A8FF;\n  color: #FFFFFF !important;\n}\n\ntr:hover,\nthead th:hover {\n  background-color: transparent !important;\n}\n\nthead th:hover {\n  cursor: default;\n}\n\nth:hover {\n  background-color: #B6DBF8;\n}\n\n.month-navigator:active,\n.month-navigator:focus {\n  outline: 0px !important;\n  -webkit-appearance: none;\n  box-shadow: none !important;\n}\n\n.month-year {\n  min-width: 50%;\n  text-align: center;\n}\n\n/* Times */\n.times {\n  max-width: 5.8rem;\n  max-height: 27rem;\n  overflow-y: scroll;\n  scroll-behavior: smooth;\n  padding-right: 3px;\n  border: none;\n}\n\n.times .btn {\n  font-size: 1.1rem;\n  display: flex;\n  padding: 15px;\n  margin-bottom: 5%;\n}\n\n.btn:disabled {\n  background-color: #007BFF !important;\n}\n\n/* TODO Fix */\n.datetime-display {\n  /* left: 5%;\n  bottom: 15%; */\n  display: none;\n}\n\n@media (max-width: 576px) {}\n\n@media (max-width: 768px) {\n  .month-year {\n    font-size: 1.2rem;\n  }\n\n  .dates {\n    margin-bottom: 0;\n    font-size: smaller;\n    min-width: 100%;\n    padding: 0;\n  }\n\n  .dates th {\n    padding: 0.8rem 0;\n  }\n}\n\n@media (max-width: 992px) {}\n\n@media (max-width: 1200px) {\n  .card {\n    min-width: 100%;\n  }\n\n  thead th span {\n    display: none;\n  }\n\n  .dates {\n    margin-bottom: 0;\n    font-size: small;\n  }\n\n  .date-picker {\n    width: 100%;\n  }\n\n  .datetime-picker {\n    flex-direction: column;\n    max-height: none;\n  }\n\n  .times {\n    flex-direction: row;\n    overflow-y: hidden;\n    overflow-x: scroll;\n    max-width: 100%;\n    min-height: 1rem !important;\n    padding-bottom: 0.5rem;\n    margin-top: 0.5rem;\n  }\n\n  .times .btn {\n    margin-bottom: 0;\n    margin-right: 1%;\n    font-size: medium;\n    padding: 8px;\n  }\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

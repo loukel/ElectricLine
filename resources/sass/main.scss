@@ -1,5 +1,5 @@
 .card-img-top {
-  max-height: 300px;
+  max-height: 250px !important;
   object-fit: cover;
 }
 
@@ -23,6 +23,19 @@ main {
   animation: fadein 1s;
 }
 
+.booking-details {
+  .booking-detail {
+    font-size: 1.1rem;
+    label {
+      font-weight: 700;
+    }
+  }
+  .btn {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+  }
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
@@ -30,4 +43,42 @@ main {
   to {
     opacity: 1;
   }
+}
+
+//Responsive
+// iPhones
+@media (max-width: 576px) {
+  .booking-details {
+    padding-top: 1.5rem !important;
+    text-align: center;
+    .booking-detail {
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.4rem;
+      label {
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+    }
+    .btn {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .card-deck {
+    flex-direction: column;
+  }
+
+  .card {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 1200px) {
 }

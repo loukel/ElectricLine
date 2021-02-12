@@ -1,5 +1,5 @@
 .card-img-top {
-  max-height: 300px;
+  max-height: 250px !important;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -25,6 +25,17 @@ main {
   animation: fadein 1s;
 }
 
+.booking-details .booking-detail {
+  font-size: 1.1rem;
+}
+.booking-details .booking-detail label {
+  font-weight: 700;
+}
+.booking-details .btn {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
 @-webkit-keyframes fadein {
   from {
     opacity: 0;
@@ -40,5 +51,33 @@ main {
   }
   to {
     opacity: 1;
+  }
+}
+@media (max-width: 576px) {
+  .booking-details {
+    padding-top: 1.5rem !important;
+    text-align: center;
+  }
+  .booking-details .booking-detail {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.4rem;
+  }
+  .booking-details .booking-detail label {
+    font-weight: 700;
+    margin-bottom: 0;
+  }
+  .booking-details .btn {
+    margin-top: 0.5rem;
+  }
+}
+@media (max-width: 768px) {
+  .card-deck {
+    flex-direction: column;
+  }
+
+  .card {
+    margin-top: 0.5rem;
   }
 }

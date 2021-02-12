@@ -23,7 +23,7 @@
           action="{{ route('services.book.process-datetime', request()->route('slug')) }}"
           method="POST" class="book">
           @csrf
-          <div class="form-group" id="datetime-picker"></div>
+          <div id="datetime-picker"></div>
           <button class="btn btn-success w-100" type="submit" name="submit">Next</button>
         </form>
         <div class="h5">

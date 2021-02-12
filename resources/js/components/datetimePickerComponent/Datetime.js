@@ -296,8 +296,8 @@ const Datetime = ({ minDate, maxDate }) => {
   }
 
   return (
-    <div className='datetime-picker py-4 d-flex justify-content-center'>
-      <div className="card card-body date-picker">
+    <div className='datetime-picker mt-1 py-4 d-flex justify-content-center'>
+      <div className="card date-picker mr-4">
         <input type="datetime" value={selectedDate} className="mb-4 text-center d-none" name="date-input" id="date-input" readOnly/>
         <div className="d-flex justify-content-center">
           <button type="button" className="btn btn-default btn-arrow-left month-navigator" onClick={prevMonth}>Previous</button>
@@ -307,13 +307,13 @@ const Datetime = ({ minDate, maxDate }) => {
         <table className="table table-bordered dates">
           <thead>
             <tr>
-              <th>Sunday</th>
-              <th>Monday</th>
-              <th>Tuesday</th>
-              <th>Wednesday</th>
-              <th>Thurday</th>
-              <th>Friday</th>
-              <th>Saturday</th>
+              <th>Sun<span>day</span></th>
+              <th>Mon<span>day</span></th>
+              <th>Tue<span>sday</span></th>
+              <th>Wed<span>nesday</span></th>
+              <th>Thu<span>rday</span></th>
+              <th>Fri<span>day</span></th>
+              <th>Sat<span>urday</span></th>
             </tr>
           </thead>
 
@@ -326,20 +326,18 @@ const Datetime = ({ minDate, maxDate }) => {
                     (typeof (date) != 'number' && new Date(date.slice(0,4), date.slice(5,7) - 1, date.slice(8,10)) <= new Date(maxDate.slice(0,4), maxDate.slice(5,7) - 1, maxDate.slice(8,10)))
                     ? `this-month-cell ${date == selectedDate ? 'selected' : ''}` : ""
                   }>
-                    <span>
-                      {typeof (date) == 'number' ? date : new Date(date).getDate()}
-                    </span>
+                    {typeof (date) == 'number' ? date : new Date(date).getDate()}
                   </th>
                 ))}
               </tr>
               ))}
           </tbody>
         </table>
-        <div className="h5 position-static">
-          <span className="text-muted">{new Date(selectedDate).toDateString()} at {timeConvert(selectedTime)}</span>
-        </div>
       </div>
       <TimePicker selectedDate={selectedDate} minMaxDayTimes={minMaxDayTimes} step={15} passSelectedTime={passSelectedTime}/>
+      <div className="h5 position-absolute datetime-display">
+          <span className="text-muted">{new Date(selectedDate).toDateString()} at {timeConvert(selectedTime)}</span>
+      </div>
     </div>
   );
 }
