@@ -30,15 +30,20 @@ class BookingController extends Controller
 
       if (empty(request('addresses')) || request('addresses') == -1) {
         // Create new address
+        $validated = $request->validate([
+          'street' => 'required',
+          'postcode' => 'required|max:8',
+          'city' => 'required|string',
+        ]);
+
         $address = new Address;
 
         $address->user_id = Auth::id();
-        $address->street = request('street');
-        $address->postcode = request('postcode');
-        $address->city = request('city');
+        $address->street = $validated['street'];
+        $address->postcode = $validated['postcode'];
+        $address->city = $validated['city'];
 
         $address->save();
-        return $address;
 
         // Set the address of the booking to the new address
         $booking->address_id = $address->id;
@@ -65,6 +70,11 @@ class BookingController extends Controller
 
   public function processVariant(Request $request, $slug) {
     if (isset($_POST['submit'])) {
+      $validated = $request->validate([
+        'bedrooms' => 'required|exists:App\Models\ServiceVariant,bedroom_number',
+        'type' => 'required|exists:App\Models\ServiceVariant,type',
+      ]);
+
       // Get session booking
       $booking = $request->session()->get('booking');
 
@@ -72,7 +82,7 @@ class BookingController extends Controller
       $serviceID = Service::where('slug', $slug)->first()->id;
 
       // Get service variant ID
-      $serviceVariantID = ServiceVariant::where('service_id', $serviceID)->where('bedroom_number', request('bedrooms'))->where('type', request('type'))->first()->id;
+      $serviceVariantID = ServiceVariant::where('service_id', $serviceID)->where('bedroom_number', $validated['bedrooms'])->where('type', $validated['type'])->first()->id;
 
       // Set service variant of the booking
       $booking->service_variant_id = $serviceVariantID;
@@ -103,6 +113,13 @@ class BookingController extends Controller
 
   public function processDatetime(Request $request, $slug) {
     if (isset($_POST['submit'])) {
+      $today = date('Y-m-d', strtotime("-1 days"));
+      $validated = $request->validate([
+        'date-input' => "required|date|after:$today",
+        'time-input' => 'required',
+      ]);
+      // TODO: Validate time better
+
       // Get session booking
       $booking = $request->session()->get('booking');
 
@@ -117,8 +134,8 @@ class BookingController extends Controller
       $serviceVariant = ServiceVariant::find($booking->service_variant_id);
 
       // Get date & time
-      $date = request('date-input');
-      $startTime = request('time-input');
+      $date = $validated['date-input'];
+      $startTime =  $validated['time-input'];
 
       $duration = $serviceVariant->duration;
       $endTime = date('H:i:s', strtotime("+$duration minutes", strtotime($startTime)));

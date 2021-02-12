@@ -56,6 +56,15 @@
               <input class="form-control" type="text" id="city" name="city" required>
             </div>
           @endif
+          @if ($errors->any())
+            <div class="alert alert-danger">
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
           <button class="btn btn-success w-100" type="submit" name="submit">Next</button>
         </form>
       </div>
