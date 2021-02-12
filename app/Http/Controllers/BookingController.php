@@ -27,7 +27,8 @@ class BookingController extends Controller
     if (isset($_POST['submit'])) {
       // Start the booking process
       $booking = new Booking;
-      if (empty($_POST['addresses']) || $_POST['addresses'] === -1) {
+
+      if (empty(request('addresses')) || request('addresses') == -1) {
         // Create new address
         $address = new Address;
 
@@ -37,12 +38,13 @@ class BookingController extends Controller
         $address->city = request('city');
 
         $address->save();
+        return $address;
 
         // Set the address of the booking to the new address
         $booking->address_id = $address->id;
       } else {
         // Set the address of the booking to the existing address
-        $booking->address_id = $_POST['addresses'];
+        $booking->address_id = request('addresses');
       }
 
       // Set the customer id
@@ -93,7 +95,7 @@ class BookingController extends Controller
   }
 
   public function unavailableTimes($slug) {
-    $date = $_POST['date'];
+    $date = request('date');
 
     // Takes into account bookings of any service by any provider -> bookings only use one provider for now
     return Booking::select('start', 'end')->where('date', $date)->get();
