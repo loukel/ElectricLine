@@ -160,18 +160,19 @@ class BookingController extends Controller
     $booking = $request->session()->get('booking');
 
     // Get the booking details
-    $service = $booking->serviceVariant()->getDisplay();
+    $service = $booking->service()->name;
+    $bedrooms = $booking->serviceVariant()->bedroom_number;
+    $type = $booking->serviceVariant()->type;
     $providerName = $booking->provider()->name;
-    $customerName = $booking->customer()->name;
     $address = $booking->address()->getDisplay();
     $date = $booking->dateDisplay();
     $time = $booking->timeDisplay();
-    $total = $booking->total;
+    $total = "£$booking->total";
 
     // Hold the session booking -> full
     $request->session()->put('booking', $booking);
 
-    return view('services.book.pay', compact('service', 'providerName', 'customerName', 'address', 'date', 'time', 'total'));
+    return view('services.book.pay', compact('service', 'bedrooms', 'type', 'providerName', 'address', 'date', 'time', 'total'));
   }
 
   public function process(Request $request, $slug) {
