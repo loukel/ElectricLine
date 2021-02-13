@@ -58,7 +58,7 @@ function getMonthsCal(yearIndex, monthIndex) {
 
   let dayIndex = firstDay;
 
-    // Fill in the calender with the months actual days
+  // Fill in the calender with the months actual days
   for (var dateDay = 1; dateDay <= daysInMonth; dateDay++) {
     row[dayIndex] = dateDay;
     if (dayIndex === 6) {
@@ -66,8 +66,7 @@ function getMonthsCal(yearIndex, monthIndex) {
       dayIndex = 0;
       monthsCalender.push(row);
       // If this is the last loop, another row will not be created
-      if (dateDay !== daysInMonth)
-        row = [];
+      if (dateDay !== daysInMonth) row = [];
     } else {
       dayIndex++;
     }
@@ -83,7 +82,7 @@ function getMonthsCal(yearIndex, monthIndex) {
     // month's calender complete
   }
 
-  return monthsCalender
+  return monthsCalender;
 }
 
 /**
@@ -92,32 +91,40 @@ function getMonthsCal(yearIndex, monthIndex) {
  * @returns {string} '01'
  */
 function numberToTwoChar(num) {
-  if (typeof (num) == 'string') {
-    return num
+  if (typeof num == "string") {
+    return num;
   }
-  var text = String (num < 10 ? "0" : "") + num;
+  var text = String(num < 10 ? "0" : "") + num;
   return text;
 }
 
 const today = () => {
-  return new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate());
-}
+  return new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate()
+  );
+};
 
 const time = () => {
   const d = new Date();
-  return [numberToTwoChar(d.getHours()), numberToTwoChar(d.getMinutes()), numberToTwoChar(d.getSeconds())].join(':');
-}
+  return [
+    numberToTwoChar(d.getHours()),
+    numberToTwoChar(d.getMinutes()),
+    numberToTwoChar(d.getSeconds()),
+  ].join(":");
+};
 
 /**
  * Input a time in the 24 hour format and receive the number minutes since the previous day (12am)
  * @param {string} hoursMinutes '09:20'
  */
 const getMinutes = (hoursMinutes) => {
-  var hour = parseInt(hoursMinutes.split(':')[0]);
-  var minute = parseInt(hoursMinutes.split(':')[1]);
-  var minutes = (hour * 60) + minute;
+  var hour = parseInt(hoursMinutes.split(":")[0]);
+  var minute = parseInt(hoursMinutes.split(":")[1]);
+  var minutes = hour * 60 + minute;
   return minutes;
-}
+};
 
 /**
  * converts minutes into the 24 hour time format
@@ -131,18 +138,29 @@ const turnInto24Hour = (minutes) => {
   minute = numberToTwoChar(minute);
 
   return `${hour}:${minute}`;
-}
+};
 
-function timeConvert (time) {
+function timeConvert(time) {
   // Check correct time format and split into components
-  time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
+    time,
+  ];
 
-  if (time.length > 1) { // If time format correct
-    time = time.slice (1);  // Remove full string match value
-    time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+  if (time.length > 1) {
+    // If time format correct
+    time = time.slice(1); // Remove full string match value
+    time[5] = +time[0] < 12 ? " AM" : " PM"; // Set AM/PM
     time[0] = +time[0] % 12 || 12; // Adjust hours
   }
-  return time.join (''); // return adjusted time or original string
+  return time.join(""); // return adjusted time or original string
 }
 
-export { getMonthsCal, numberToTwoChar, today, time, getMinutes, turnInto24Hour, timeConvert }
+export {
+  getMonthsCal,
+  numberToTwoChar,
+  today,
+  time,
+  getMinutes,
+  turnInto24Hour,
+  timeConvert,
+};
