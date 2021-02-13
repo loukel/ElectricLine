@@ -20,7 +20,7 @@ class UserFactory extends Factory {
      * @return array
      */
     public function definition() {
-        $type = array('customer','customer','customer','customer','customer', 'customer', 'provider');
+        $type = array('customer','customer','customer','customer','customer', 'customer');
 
         return [
             'name' => $this->faker->name,
