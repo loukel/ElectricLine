@@ -41,6 +41,11 @@ thead th:nth-child(4) {
   padding: 0.8rem 0;
 }
 
+
+th:hover:not(.selected) {
+  background-color: #B6DBF8;
+}
+
 .selected {
   /* background-color: #007BFF; */
   background-color: #58A8FF;
@@ -54,10 +59,6 @@ thead th:hover {
 
 thead th:hover {
   cursor: default;
-}
-
-th:hover {
-  background-color: #B6DBF8;
 }
 
 .month-navigator:active,
