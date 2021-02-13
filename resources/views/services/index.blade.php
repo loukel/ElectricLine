@@ -20,8 +20,8 @@
       <img class="card-img-top" src="img/lightbulb.jpg" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">EIRC Report</h5>
-        <p class="card-text">(Description)</p>
-        <p>An EICR is an Electrical Installation Condition Report. It is a formal document that is produced following an
+        <p class="card-text">
+          An EICR is an Electrical Installation Condition Report. It is a formal document that is produced following an
           assessment of the electrical installation within a property. It must be carried out by an experienced
           qualified electrician or approved contractor...</p>
       </div>
@@ -36,8 +36,8 @@
       <img class="card-img-top" src="img/consumerunit.jpg" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Consumer Unit Replacement</h5>
-        <p class="card-text">(Description)</p>
-        <p>Consumer units (CU) are replaced for various reasons. This includes replacement where the existing unit does
+        <p class="card-text">Consumer units (CU) are replaced for various reasons. This includes replacement where the
+          existing unit does
           not meet the requirements of BS 7671, for example, where there is no RCD protection. Or there may be no spare
           capacity in the existing consumer unit to connect additional circuits...</p>
       </div>
