@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
+@section('scripts')
+<script src="https://js.stripe.com/v3/"></script>
+<script defer src="{{ asset('js/payForm.js') }}"></script>
+@endsection
+
 @section('content')
 <form
   action="{{ route('services.book.process', request()->route('slug')) }}"
-  method="POST" class="container py-4 d-flex flex-wrap justify-content-center">
+  method="POST" id="pay-form" class="container py-4 d-flex flex-wrap justify-content-center">
   @csrf
-  <div class="card p-5 w-75">
-    <div class="card-title h3">Payment Method</div>
-  </div>
-  <div class="card p-5 mt-4 w-75 booking-details">
+  <div class="card p-5 w-75 booking-details">
     <div class="card-title h3">
       Booking details
     </div>
@@ -44,8 +46,25 @@
       <label for="total">Total:</label>
       <span class="detail">{{ $total }}</span>
     </div>
-    <button class="btn btn-success">
-      Pay and Confirm
+  </div>
+
+  <div class="card p-5 w-75 mt-4 ">
+    <div class="card-title h3">Payment Method</div>
+
+    <div class="form-group">
+      <label for="card-holder-name">Name on card</label>
+      <input id="card-holder-name" class="form-control" type="text" value="{{ Auth::user()->name }}">
+    </div>
+
+    <div class="form-group">
+      <label for="card-element">Credit or debit card</label>
+      <div id="card-element" class="form-control" style='height: 2.4em; padding-top: .7em;'>
+        <!-- A Stripe Element will be inserted here. -->
+      </div>
+      <div id="card-errors" class="alert alert-danger d-none"></div>
+    </div>
+    <button class="btn btn-success" id="card-button">
+      Pay
     </button>
   </div>
 </form>

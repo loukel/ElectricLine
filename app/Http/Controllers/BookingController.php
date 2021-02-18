@@ -19,6 +19,31 @@ use App\Models\User;
 
 class BookingController extends Controller
 {
+  public function index() {
+    if (Auth::user()->provider())
+      $bookings = Booking::where('provider_id', Auth::id())->paginate(10);
+    elseif  (Auth::user()->customer())
+      $bookings = Booking::where('customer_id', Auth::id())->orderBy('date')->orderBy('start')->paginate(10);
+    else
+      redirect(url('/'));
+
+    return view('bookings.index', compact('bookings'));
+  }
+
+  // ! No show for now
+  public function show($id) {
+    if (Auth::user()->provider())
+      $booking = Booking::where('id', $id)->where('provider_id', Auth::id())->first();
+    elseif  (Auth::user()->customer())
+      $booking = Booking::where('id', $id)->where('customer_id', Auth::id())->first();
+
+    if (!$booking)
+      return redirect('/');
+    else
+      return view('bookings.show', compact('booking'));
+
+  }
+
   public function address($slug) {
     $addresses = Address::where('user_id', Auth::id())->get();
 
@@ -169,7 +194,7 @@ class BookingController extends Controller
     $address = $booking->address()->getDisplay();
     $date = $booking->dateDisplay();
     $time = $booking->timeDisplay();
-    $total = "£$booking->total";
+    $total = '£' . $booking->total;
 
     // Hold the session booking -> full
     $request->session()->put('booking', $booking);
@@ -182,36 +207,17 @@ class BookingController extends Controller
     $booking = $request->session()->get('booking');
 
     // Store the booking with a transaction
-    DB::transaction(function () use ($booking) {
+    DB::transaction(function () use ($booking, $request) {
+      // TODO Payment
       $booking->status = 'processed';
       $booking->save();
+
+      // Charge customer
+      $stripeCharge = $request->user()->charge(
+        $booking->total*100, request('payment-method-id')
+      );
     });
 
     return redirect(route('services.index'))->with('success', true);
-  }
-
-  public function index() {
-    if (Auth::user()->provider())
-      $bookings = Booking::where('provider_id', Auth::id())->paginate(10);
-    elseif  (Auth::user()->customer())
-      $bookings = Booking::where('customer_id', Auth::id())->orderBy('date')->orderBy('start')->paginate(10);
-    else
-      redirect(url('/'));
-
-    return view('bookings.index', compact('bookings'));
-  }
-
-  // ! No show for now
-  public function show($id) {
-    if (Auth::user()->provider())
-      $booking = Booking::where('id', $id)->where('provider_id', Auth::id())->first();
-    elseif  (Auth::user()->customer())
-      $booking = Booking::where('id', $id)->where('customer_id', Auth::id())->first();
-
-    if (!$booking)
-      return redirect('/');
-    else
-      return view('bookings.show', compact('booking'));
-
   }
 }

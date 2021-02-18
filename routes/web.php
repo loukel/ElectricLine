@@ -42,5 +42,3 @@ Route::group(['prefix' => 'bookings', 'as' => 'bookings.', 'middleware' => ['aut
   Route::get('/', 'BookingController@index')->name('index');
   Route::get('/{id}', 'BookingController@show')->name('show');
 });
-
-

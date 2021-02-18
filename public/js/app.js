@@ -1999,8 +1999,8 @@ function addDays(date, days) {
 
 
 function dateRange(minDate, maxDate) {
-  var start = minDate.split('-');
-  var end = maxDate.split('-');
+  var start = minDate.split("-");
+  var end = maxDate.split("-");
   var startYear = parseInt(start[0]);
   var endYear = parseInt(end[0]);
   var dates = [];
@@ -2011,8 +2011,8 @@ function dateRange(minDate, maxDate) {
 
     for (var j = startMon; j <= endMonth; j = j > 12 ? j % 12 || 11 : j + 1) {
       var month = j + 1;
-      var displayMonth = month < 10 ? '0' + month : month;
-      dates.push([i, displayMonth].join('-'));
+      var displayMonth = month < 10 ? "0" + month : month;
+      dates.push([i, displayMonth].join("-"));
     }
   }
 
@@ -2038,14 +2038,14 @@ var Datetime = function Datetime(_ref) {
    */
   // set minMaxDayTimes
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([// Default
-  ['09:00', '20:30'], // Sunday
-  ['09:00', '20:30'], // Monday
-  ['09:00', '20:30'], // Tuesday
-  ['09:00', '20:30'], // Wednesday
-  ['09:00', '20:30'], // Thursday
-  ['09:00', '20:30'], // Friday
-  ['09:00', '20:30'], // Saturday
-  'now' // Today
+  ["09:00", "20:30"], // Sunday
+  ["09:00", "20:30"], // Monday
+  ["09:00", "20:30"], // Tuesday
+  ["09:00", "20:30"], // Wednesday
+  ["09:00", "20:30"], // Thursday
+  ["09:00", "20:30"], // Friday
+  ["09:00", "20:30"], // Saturday
+  "now" // Today
   ]),
       _useState2 = _slicedToArray(_useState, 2),
       minMaxDayTimes = _useState2[0],
@@ -2055,22 +2055,22 @@ var Datetime = function Datetime(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
     var headers = new Headers({
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': csrfToken
+      "Content-Type": "application/json",
+      "X-CSRF-TOKEN": csrfToken
     });
-    fetch('min-max-times', {
-      method: 'POST',
+    fetch("min-max-times", {
+      method: "POST",
       headers: headers
     }).then(function (response) {
       return response.json();
     })["catch"](function (error) {
-      return console.error('Error:', error);
+      return console.error("Error:", error);
     }).then(function (data) {
       var dayTimes = Object.values(data).map(function (timeframe) {
-        var timeframeArray = timeframe.split('-');
+        var timeframeArray = timeframe.split("-");
         return [timeframeArray[0], timeframeArray[1]];
       });
-      dayTimes.push('now');
+      dayTimes.push("now");
       setMinMaxDayTimes(dayTimes);
     });
   }, []); // - repeated function from TimePicker maybe add to dtFunctions
@@ -2078,45 +2078,44 @@ var Datetime = function Datetime(_ref) {
   var minTimeInMins;
   var maxTimeInMins;
 
-  if (minMaxDayTimes[7].slice(0, 3) == 'now') {
+  if (minMaxDayTimes[7].slice(0, 3) == "now") {
     minTimeInMins = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.getMinutes)((0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.time)());
     maxTimeInMins = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.getMinutes)(minMaxDayTimes[(0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.today)().getDay()][1]);
     var addedMins = 0;
 
     if (minMaxDayTimes[7].slice(3)) {
       addedMins = parseInt(minMaxDayTimes[7].slice(4));
-      if (minMaxDayTimes[7].slice(3, 4) == '-') addedMins = -addedMins;
+      if (minMaxDayTimes[7].slice(3, 4) == "-") addedMins = -addedMins;
       minTimeInMins += addedMins;
     }
   } // Fix minDate
 
 
-  if (minDate.slice(0, 5) == 'today') {
+  if (minDate.slice(0, 5) == "today") {
     var daysToAdd = 0;
     var sign = minDate.slice(5, 6);
-    if (sign == '+') daysToAdd = parseInt(minDate.slice(6));else if (sign == '-') daysToAdd = -parseInt(minDate.slice(6));
+    if (sign == "+") daysToAdd = parseInt(minDate.slice(6));else if (sign == "-") daysToAdd = -parseInt(minDate.slice(6));
     if (daysToAdd == 0 && (minTimeInMins > 1440 || minTimeInMins > maxTimeInMins)) daysToAdd++;
     var dateToChange = new Date();
     dateToChange = addDays(dateToChange, daysToAdd);
-    dateToChange = [dateToChange.getFullYear(), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(dateToChange.getMonth() + 1), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(dateToChange.getDate())].join('-');
-    ;
+    dateToChange = [dateToChange.getFullYear(), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(dateToChange.getMonth() + 1), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(dateToChange.getDate())].join("-");
     minDate = dateToChange;
   } else if (minDate instanceof Date) {
-    var unformattedDate = [minDate.getFullYear(), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(minDate.getMonth() + 1), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(minDate.getDate())].join('-');
+    var unformattedDate = [minDate.getFullYear(), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(minDate.getMonth() + 1), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(minDate.getDate())].join("-");
     minDate = unformattedDate;
   } // Fix maxDate
 
 
-  if (maxDate == 'today') {
+  if (maxDate == "today") {
     var daysToAdd = 0;
     var sign = minDate.slice(5, 6);
-    if (sign == '+') daysToAdd = parseInt(minDate.slice(6));else if (sign == '-') daysToAdd = -parseInt(minDate.slice(6));
+    if (sign == "+") daysToAdd = parseInt(minDate.slice(6));else if (sign == "-") daysToAdd = -parseInt(minDate.slice(6));
     var dateToChange = new Date();
     addDays(dateToChange, daysToAdd);
-    dateToChange = [dateToChange.getFullYear(), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(dateToChange.getMonth() + 1), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(dateToChange.getDate())].join('-');
+    dateToChange = [dateToChange.getFullYear(), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(dateToChange.getMonth() + 1), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(dateToChange.getDate())].join("-");
     maxDate = dateToChange;
   } else if (maxDate instanceof Date) {
-    var unformattedDate = [maxDate.getFullYear(), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(maxDate.getMonth() + 1), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(maxDate.getDate())].join('-');
+    var unformattedDate = [maxDate.getFullYear(), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(maxDate.getMonth() + 1), (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(maxDate.getDate())].join("-");
     maxDate = unformattedDate;
   }
 
@@ -2128,28 +2127,28 @@ var Datetime = function Datetime(_ref) {
   var updateSelectedDate = function updateSelectedDate() {
     var monthYear_ = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : monthYear;
     var day_ = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : day;
-    var date = [monthYear_, day_].join('-');
+    var date = [monthYear_, day_].join("-");
 
-    if (monthYear_ == monthsYears[monthsYears.length - 1] && day_ > maxDate.split('-')[2]) {
-      while (day_ > maxDate.split('-')[2]) {
+    if (monthYear_ == monthsYears[monthsYears.length - 1] && day_ > maxDate.split("-")[2]) {
+      while (day_ > maxDate.split("-")[2]) {
         day_--;
       }
 
       day_ = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(day_);
-      date = [monthYear_, day_].join('-');
-    } else if (monthYear_ == monthsYears[0] && day_ < minDate.split('-')[2]) {
-      while (day_ < minDate.split('-')[2]) {
+      date = [monthYear_, day_].join("-");
+    } else if (monthYear_ == monthsYears[0] && day_ < minDate.split("-")[2]) {
+      while (day_ < minDate.split("-")[2]) {
         day_++;
       }
 
       day_ = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(day_);
-      date = [monthYear_, day_].join('-');
+      date = [monthYear_, day_].join("-");
     } // Check if date is invalid, and lower if so
 
 
     while (isNaN(new Date(date))) {
       day_--;
-      date = [monthYear_, day_].join('-');
+      date = [monthYear_, day_].join("-");
     }
 
     setSelectedDate(date);
@@ -2167,7 +2166,7 @@ var Datetime = function Datetime(_ref) {
       monthYear = _useState8[0],
       setMonthYear = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(minDate.split('-')[2]),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(minDate.split("-")[2]),
       _useState10 = _slicedToArray(_useState9, 2),
       day = _useState10[0],
       setDay = _useState10[1];
@@ -2184,7 +2183,7 @@ var Datetime = function Datetime(_ref) {
 
   function getDisplayMonthYear(unformatedMY) {
     var MY = new Date(unformatedMY);
-    return monthNames[MY.getMonth()] + ' ' + MY.getFullYear();
+    return monthNames[MY.getMonth()] + " " + MY.getFullYear();
   }
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -2205,53 +2204,53 @@ var Datetime = function Datetime(_ref) {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var monthCalender = [];
-    var when = 'previous';
+    var when = "previous";
     month.forEach(function (row) {
       var rowCalender = [];
       row.forEach(function (date) {
-        if (date == 1 && when == 'current') // Date is set the month after the current
-          when = 'after';else if (date == 1) // Date is set in the current
-          when = 'current';
+        if (date == 1 && when == "current") // Date is set the month after the current
+          when = "after";else if (date == 1) // Date is set in the current
+          when = "current";
         var daysDate;
 
         switch (when) {
-          case 'previous':
+          case "previous":
             if (monthIndex > 0) {
               var monthString;
               var yearString;
 
               if (monthYear.slice(5, 7) - 1 == 0) {
-                monthString = '12';
+                monthString = "12";
                 yearString = monthYear.slice(0, 4) - 1;
               } else {
                 monthString = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(monthYear.slice(5, 7) - 1);
                 yearString = monthYear.slice(0, 4);
               }
 
-              daysDate = [yearString, monthString, (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(date)].join('-');
+              daysDate = [yearString, monthString, (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(date)].join("-");
             } else daysDate = date;
 
             break;
 
-          case 'current':
-            var formattedDate = [monthYear, (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(date)].join('-');
+          case "current":
+            var formattedDate = [monthYear, (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(date)].join("-");
             if (formattedDate <= maxDate && formattedDate >= minDate) daysDate = formattedDate;else daysDate = date;
             break;
 
-          case 'after':
+          case "after":
             if (monthIndex < monthsYears.length - 1) {
               var monthString;
               var yearString;
 
               if (parseInt(monthYear.slice(5, 7)) + 1 == 13) {
-                monthString = '01';
+                monthString = "01";
                 yearString = parseInt(monthYear.slice(0, 4)) + 1;
               } else {
                 monthString = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(parseInt(monthYear.slice(5, 7)) + 1);
                 yearString = monthYear.slice(0, 4);
               }
 
-              if ([yearString, monthString, (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(date)].join('-') <= maxDate) daysDate = [yearString, monthString, (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(date)].join('-');else daysDate = date;
+              if ([yearString, monthString, (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(date)].join("-") <= maxDate) daysDate = [yearString, monthString, (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_2__.numberToTwoChar)(date)].join("-");else daysDate = date;
             } else daysDate = date;
 
             break;
@@ -2265,7 +2264,7 @@ var Datetime = function Datetime(_ref) {
   }, [monthYear]);
 
   function selectDate(date) {
-    if (typeof date == 'string' && date != selectedDate) {
+    if (typeof date == "string" && date != selectedDate) {
       if (date.slice(0, -3) === monthYear) {
         setDay(date.slice(8, 10));
       } else {
@@ -2286,7 +2285,7 @@ var Datetime = function Datetime(_ref) {
   } // Incredibly ugly time transfer from child to parent
 
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState14 = _slicedToArray(_useState13, 2),
       selectedTime = _useState14[0],
       setSelectedTime = _useState14[1];
@@ -2365,8 +2364,8 @@ var Datetime = function Datetime(_ref) {
                   onClick: function onClick() {
                     return selectDate(date);
                   },
-                  className: new Date(date).getMonth() + 1 == monthYear.slice(5, 7) && typeof date != 'number' && new Date(date.slice(0, 4), date.slice(5, 7) - 1, date.slice(8, 10)) <= new Date(maxDate.slice(0, 4), maxDate.slice(5, 7) - 1, maxDate.slice(8, 10)) ? "this-month-cell ".concat(date == selectedDate ? 'selected' : '') : "",
-                  children: typeof date == 'number' ? date : new Date(date).getDate()
+                  className: new Date(date).getMonth() + 1 == monthYear.slice(5, 7) && typeof date != "number" && new Date(date.slice(0, 4), date.slice(5, 7) - 1, date.slice(8, 10)) <= new Date(maxDate.slice(0, 4), maxDate.slice(5, 7) - 1, maxDate.slice(8, 10)) ? "this-month-cell ".concat(date == selectedDate ? "selected" : "") : "",
+                  children: typeof date == "number" ? date : new Date(date).getDate()
                 }, date);
               })
             }, row);
@@ -2424,8 +2423,8 @@ function DatetimePicker() {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DatetimePicker);
 
-if (document.getElementById('datetime-picker')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DatetimePicker, {}), document.getElementById('datetime-picker'));
+if (document.getElementById("datetime-picker")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DatetimePicker, {}), document.getElementById("datetime-picker"));
 }
 
 /***/ }),
@@ -2471,8 +2470,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var generateTimes = function generateTimes() {
-  var minTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '00:00';
-  var maxTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '24:00';
+  var minTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "00:00";
+  var maxTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "24:00";
   var step = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 15;
   var unavailableTimes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
   var minTimeMins = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_1__.getMinutes)(minTime);
@@ -2525,7 +2524,7 @@ var TimePicker = function TimePicker(_ref5) {
       times = _useState2[0],
       setTimes = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       selectedTime = _useState4[0],
       setSelectedTime = _useState4[1];
@@ -2537,12 +2536,12 @@ var TimePicker = function TimePicker(_ref5) {
     var maxTime = minMaxDayTimes[dayIndex][1]; // Check the selected date is today
     // - This should be done in Datetime, props should be more minimal, most calculations should be done in parent as the min time addition could change the day and also this could
 
-    if (formattedSelectedDate.valueOf() === (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_1__.today)().valueOf() && minMaxDayTimes[7].slice(0, 3) === 'now') {
+    if (formattedSelectedDate.valueOf() === (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_1__.today)().valueOf() && minMaxDayTimes[7].slice(0, 3) === "now") {
       var addedMins = 0;
 
       if (minMaxDayTimes[7].slice(3)) {
         addedMins = parseInt(minMaxDayTimes[7].slice(4));
-        if (minMaxDayTimes[7].slice(3, 4) == '-') addedMins = -addedMins;
+        if (minMaxDayTimes[7].slice(3, 4) == "-") addedMins = -addedMins;
       }
 
       var minTimeInMins = (0,_dtFunctions__WEBPACK_IMPORTED_MODULE_1__.getMinutes)((0,_dtFunctions__WEBPACK_IMPORTED_MODULE_1__.time)()) + addedMins;
@@ -2552,22 +2551,22 @@ var TimePicker = function TimePicker(_ref5) {
 
     var csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
     var headers = new Headers({
-      'X-CSRF-TOKEN': csrfToken
+      "X-CSRF-TOKEN": csrfToken
     }); // Pass date
 
     var params = new URLSearchParams();
-    params.append('date', selectedDate);
-    fetch('unavailable-times', {
-      method: 'POST',
+    params.append("date", selectedDate);
+    fetch("unavailable-times", {
+      method: "POST",
       headers: headers,
       body: params
     }).then(function (response) {
       return response.json();
     })["catch"](function (error) {
-      return console.error('Error:', error);
+      return console.error("Error:", error);
     }).then(function (data) {
       var unavailableTimes = Object.values(data).map(function (timeframe) {
-        return [timeframe['start'], timeframe['end']];
+        return [timeframe["start"], timeframe["end"]];
       });
       setTimes(generateTimes(minTime, maxTime, step, unavailableTimes));
     });
@@ -2721,7 +2720,7 @@ function getMonthsCal(yearIndex, monthIndex) {
 
 
 function numberToTwoChar(num) {
-  if (typeof num == 'string') {
+  if (typeof num == "string") {
     return num;
   }
 
@@ -2735,7 +2734,7 @@ var today = function today() {
 
 var time = function time() {
   var d = new Date();
-  return [numberToTwoChar(d.getHours()), numberToTwoChar(d.getMinutes()), numberToTwoChar(d.getSeconds())].join(':');
+  return [numberToTwoChar(d.getHours()), numberToTwoChar(d.getMinutes()), numberToTwoChar(d.getSeconds())].join(":");
 };
 /**
  * Input a time in the 24 hour format and receive the number minutes since the previous day (12am)
@@ -2744,8 +2743,8 @@ var time = function time() {
 
 
 var getMinutes = function getMinutes(hoursMinutes) {
-  var hour = parseInt(hoursMinutes.split(':')[0]);
-  var minute = parseInt(hoursMinutes.split(':')[1]);
+  var hour = parseInt(hoursMinutes.split(":")[0]);
+  var minute = parseInt(hoursMinutes.split(":")[1]);
   var minutes = hour * 60 + minute;
   return minutes;
 };
@@ -2771,12 +2770,12 @@ function timeConvert(time) {
     // If time format correct
     time = time.slice(1); // Remove full string match value
 
-    time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+    time[5] = +time[0] < 12 ? " AM" : " PM"; // Set AM/PM
 
     time[0] = +time[0] % 12 || 12; // Adjust hours
   }
 
-  return time.join(''); // return adjusted time or original string
+  return time.join(""); // return adjusted time or original string
 }
 
 
@@ -7227,7 +7226,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".datetime-picker {\n  flex-direction: row;\n  min-width: 100%;\n  padding-top: 0.5rem !important;\n  padding-bottom: 0 !important;\n  margin-bottom: 1rem;\n}\n\n.date-picker {\n  border: none;\n  width: 90%;\n}\n\n.dates {\n  table-layout: fixed;\n}\n\n.arrow,\n.month-year {\n  font-size: 18pt;\n}\n\nth:hover {\n  cursor: pointer;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\ntr {\n  text-align: center;\n}\n\nth {\n  color: #6c757d;\n}\n\nth.this-month-cell {\n  color: black;\n}\n\nthead th:nth-child(4) {\n  padding: 0.8rem 0;\n}\n\n\nth:hover:not(.selected) {\n  background-color: #B6DBF8;\n}\n\n.selected {\n  /* background-color: #007BFF; */\n  background-color: #58A8FF;\n  color: #FFFFFF !important;\n}\n\ntr:hover,\nthead th:hover {\n  background-color: transparent !important;\n}\n\nthead th:hover {\n  cursor: default;\n}\n\n.month-navigator:active,\n.month-navigator:focus {\n  outline: 0px !important;\n  -webkit-appearance: none;\n  box-shadow: none !important;\n}\n\n.month-year {\n  min-width: 50%;\n  text-align: center;\n}\n\n/* Times */\n.times {\n  max-width: 5.8rem;\n  max-height: 27rem;\n  overflow-y: scroll;\n  scroll-behavior: smooth;\n  padding-right: 3px;\n  border: none;\n}\n\n.times .btn {\n  font-size: 1.1rem;\n  display: flex;\n  padding: 15px;\n  margin-bottom: 5%;\n}\n\n.btn:disabled {\n  background-color: #007BFF !important;\n}\n\n/* TODO Fix */\n.datetime-display {\n  /* left: 5%;\n  bottom: 15%; */\n  display: none;\n}\n\n@media (max-width: 576px) {}\n\n@media (max-width: 768px) {\n  .month-year {\n    font-size: 1.2rem;\n  }\n\n  .dates {\n    margin-bottom: 0;\n    font-size: smaller;\n    min-width: 100%;\n    padding: 0;\n  }\n\n  .dates th {\n    padding: 0.8rem 0;\n  }\n}\n\n@media (max-width: 992px) {}\n\n@media (max-width: 1200px) {\n  .card {\n    min-width: 100%;\n  }\n\n  thead th span {\n    display: none;\n  }\n\n  .dates {\n    margin-bottom: 0;\n    font-size: small;\n  }\n\n  .date-picker {\n    width: 100%;\n  }\n\n  .datetime-picker {\n    flex-direction: column;\n    max-height: none;\n  }\n\n  .times {\n    flex-direction: row;\n    overflow-y: hidden;\n    overflow-x: scroll;\n    max-width: 100%;\n    min-height: 1rem !important;\n    padding-bottom: 0.5rem;\n    margin-top: 0.5rem;\n  }\n\n  .times .btn {\n    margin-bottom: 0;\n    margin-right: 1%;\n    font-size: medium;\n    padding: 8px;\n  }\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".datetime-picker {\r\n  flex-direction: row;\r\n  min-width: 100%;\r\n  padding-top: 0.5rem !important;\r\n  padding-bottom: 0 !important;\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.date-picker {\r\n  border: none;\r\n  width: 90%;\r\n}\r\n\r\n.dates {\r\n  table-layout: fixed;\r\n}\r\n\r\n.arrow,\r\n.month-year {\r\n  font-size: 18pt;\r\n}\r\n\r\nth:hover {\r\n  cursor: pointer;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\r\n}\r\n\r\ntr {\r\n  text-align: center;\r\n}\r\n\r\nth {\r\n  color: #6c757d;\r\n}\r\n\r\nth.this-month-cell {\r\n  color: black;\r\n}\r\n\r\nthead th:nth-child(4) {\r\n  padding: 0.8rem 0;\r\n}\r\n\r\n\r\nth:hover:not(.selected) {\r\n  background-color: #B6DBF8;\r\n}\r\n\r\n.selected {\r\n  /* background-color: #007BFF; */\r\n  background-color: #58A8FF;\r\n  color: #FFFFFF !important;\r\n}\r\n\r\ntr:hover,\r\nthead th:hover {\r\n  background-color: transparent !important;\r\n}\r\n\r\nthead th:hover {\r\n  cursor: default;\r\n}\r\n\r\n.month-navigator:active,\r\n.month-navigator:focus {\r\n  outline: 0px !important;\r\n  -webkit-appearance: none;\r\n  box-shadow: none !important;\r\n}\r\n\r\n.month-year {\r\n  min-width: 50%;\r\n  text-align: center;\r\n}\r\n\r\n/* Times */\r\n.times {\r\n  max-width: 5.8rem;\r\n  max-height: 27rem;\r\n  overflow-y: scroll;\r\n  scroll-behavior: smooth;\r\n  padding-right: 3px;\r\n  border: none;\r\n}\r\n\r\n.times .btn {\r\n  font-size: 1.1rem;\r\n  display: flex;\r\n  padding: 15px;\r\n  margin-bottom: 5%;\r\n}\r\n\r\n.btn:disabled {\r\n  background-color: #007BFF !important;\r\n}\r\n\r\n/* TODO Fix */\r\n.datetime-display {\r\n  /* left: 5%;\r\n  bottom: 15%; */\r\n  display: none;\r\n}\r\n\r\n@media (max-width: 576px) {}\r\n\r\n@media (max-width: 768px) {\r\n  .month-year {\r\n    font-size: 1.2rem;\r\n  }\r\n\r\n  .dates {\r\n    margin-bottom: 0;\r\n    font-size: smaller;\r\n    min-width: 100%;\r\n    padding: 0;\r\n  }\r\n\r\n  .dates th {\r\n    padding: 0.8rem 0;\r\n  }\r\n}\r\n\r\n@media (max-width: 992px) {}\r\n\r\n@media (max-width: 1200px) {\r\n  .card {\r\n    min-width: 100%;\r\n  }\r\n\r\n  thead th span {\r\n    display: none;\r\n  }\r\n\r\n  .dates {\r\n    margin-bottom: 0;\r\n    font-size: small;\r\n  }\r\n\r\n  .date-picker {\r\n    width: 100%;\r\n  }\r\n\r\n  .datetime-picker {\r\n    flex-direction: column;\r\n    max-height: none;\r\n  }\r\n\r\n  .times {\r\n    flex-direction: row;\r\n    overflow-y: hidden;\r\n    overflow-x: scroll;\r\n    max-width: 100%;\r\n    min-height: 1rem !important;\r\n    padding-bottom: 0.5rem;\r\n    margin-top: 0.5rem;\r\n  }\r\n\r\n  .times .btn {\r\n    margin-bottom: 0;\r\n    margin-right: 1%;\r\n    font-size: medium;\r\n    padding: 8px;\r\n  }\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
